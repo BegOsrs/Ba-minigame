@@ -1,9 +1,9 @@
 Includes some features to enhance the barbarian assault minigame gameplay experience.
 
+# Ba Configuration
 
-# Barbarian Assault Configuration
-
-![Barbarian assault plugin](https://i.imgur.com/v3o2uHX.gif)
+--TODO update
+![Barbarian assault plugin](https://i.imgur.com/v3o2uHX.gif) 
 
 ### Show call change timer	
 Shows time to next call change
@@ -17,6 +17,7 @@ Enable game chat colors on messages announced by this plugin
 Shows the time all penance monsters of a certain type are killed in an info box, the chat, or both
 
 ![](https://user-images.githubusercontent.com/17231890/94433907-e42ced00-0190-11eb-842f-ece6f7a00924.png)
+
 ![](https://user-images.githubusercontent.com/17231890/94433913-e4c58380-0190-11eb-95e9-8dd92e6fc89b.png)
 
 ### Show duration
@@ -42,8 +43,14 @@ Displays the amount of loaded eggs on cannon hoppers
 ### Highlight mode
 Define the mode of all inventory highlights
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Outline&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Overlay
 ![](https://user-images.githubusercontent.com/17231890/94434338-8947c580-0191-11eb-9a22-1f4a46f1e689.png) ![](https://user-images.githubusercontent.com/17231890/94433736-ac25aa00-0190-11eb-8595-306a8a7156ac.png)
+
+### Swap Commander Connad
+Swap `Talk-to` with `Get-rewards` for the Commander Connad
+
+### Swap Ladder
+Swap `Climb-down` with `Quick-start` on the lobby ladders
+
 
 ## Attacker
 
@@ -63,6 +70,7 @@ Highlights the attack style called by your teammate
 ### Highlight attack style color
 Configures the color to highlight the attack style
 
+
 ## Defender
 
 ### Highlight called bait
@@ -78,12 +86,40 @@ Shows the current cycle tick of runners
 
 ![](https://user-images.githubusercontent.com/17231890/94431310-03298000-018d-11eb-8e22-9e91fee8b060.png)
 
+### Highlight bait
+Highlight bait dropped on the ground
+
+### Highlight logs and hammer
+Highlight logs and hammer
+
+
 ## Collector
 
 ### Show number of eggs collected
 Displays current number of eggs collected
 
 ![](https://user-images.githubusercontent.com/17231890/94431354-150b2300-018d-11eb-9f2f-5ffbd85b3478.png)
+
+### Highlight eggs
+Highlight egg colors on the ground when performing the Collector role
+
+The following gif loops between the available configurations:
+1. Called only
+2. Highlight all
+3. Highlight none
+4. Disabled/Enabled
+![Barbarian assault plugin](https://i.imgur.com/t9EIg4b.gif)
+
+### Collection bag
+
+Swap `Look-in` with `Empty` on the collection bag
+
+### Collector horn
+Swap `Use` with `Tell-defensive` on the collector horn
+
+### Collector eggs
+Swap `Use` with `Destroy` on eggs
+
 
 ## Healer
 
@@ -112,49 +148,3 @@ Displays current number of hitpoints healed
 Displays a health bar where a teammate's remaining health is located
 
 ![](https://user-images.githubusercontent.com/17231890/94446578-bc458580-01a0-11eb-83fc-f517bea2dc3a.png)
-
-# Ground Items
-
-## Barbarian assault
-
-### Barbarian Assault mode
-Enables or disables the mode inside barbarian assault
-
-### Highlight eggs
-Highlight egg colors on the ground when performing the Collector role
-
-The following gif loops between the available configurations:
-1. Called only
-2. Highlight all
-3. Highlight none
-4. Barbarian assault mode off/on
-![Barbarian assault plugin](https://i.imgur.com/t9EIg4b.gif)
-
-### Highlight bait
-Highlight bait dropped on the ground when performing the Defender role
-
-### Highlight logs and hammer
-Highlight logs and hammer when performing the Defender role
-
-# Menu Entry Swapper
-
-## Item Swaps
-
-### Collection bag
-
-Swap `Look-in` with `Empty` on the collection bag inside barbarian assault
-
-### Collector horn
-Swap `Use` with `Tell-defensive` on the collector horn inside barbarian assault
-
-### Collector eggs
-Swap `Use` with `Destroy` on eggs inside barbarian assault
-
-### Get-rewards
-Swap `Talk-to` with `Get-rewards` for the Commander Connad
-
-## NPC Swaps
-
-### Commander Connad
-
-Swap `Talk-to` with `Get-rewards` for the Commander Connad
