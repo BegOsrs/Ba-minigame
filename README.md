@@ -1,6 +1,6 @@
 Includes some features to enhance the barbarian assault minigame gameplay experience.
 
-# Ba Configuration
+# Ba minigame Configuration
 
 --TODO update
 ![Barbarian assault plugin](https://i.imgur.com/v3o2uHX.gif) 
