@@ -108,6 +108,7 @@ The following gif loops between the available configurations:
 2. Highlight all
 3. Highlight none
 4. Disabled/Enabled
+
 ![Barbarian assault plugin](https://i.imgur.com/t9EIg4b.gif)
 
 ### Collection bag
@@ -118,7 +119,7 @@ Swap `Look-in` with `Empty` on the collection bag
 Swap `Use` with `Tell-defensive` on the collector horn
 
 ### Collector eggs
-Swap `Use` with `Destroy` on eggs
+Swap `Use` with `Destroy` on green/blue/red eggs
 
 
 ## Healer
