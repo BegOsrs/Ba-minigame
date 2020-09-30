@@ -128,6 +128,8 @@ Swap `Use` with `Destroy` on green/blue/red eggs
 
 ## Healer
 
+![](https://i.imgur.com/yTHoLcU.gif)
+
 ### Highlight called poison
 Highlights poison food called by your teammate
 
