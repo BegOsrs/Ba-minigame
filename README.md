@@ -54,6 +54,8 @@ Swap `Climb-down` with `Quick-start` on the lobby ladders
 
 ## Attacker
 
+![](https://i.imgur.com/Mf7GdeM.gif)
+
 ### Highlight arrows
 Highlights arrows called by your teammate
 
