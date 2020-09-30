@@ -75,6 +75,8 @@ Configures the color to highlight the attack style
 
 ## Defender
 
+![](https://i.imgur.com/xY0eDJq.gif)
+
 ### Highlight called bait
 Highlights bait called by your teammate
 
