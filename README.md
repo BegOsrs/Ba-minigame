@@ -119,6 +119,9 @@ Highlight collectorEgg colors on the ground
 
 ![Barbarian assault plugin](https://i.imgur.com/t9EIg4b.gif)
 
+### Menu highlight mode
+Configures what to highlight in right-click menu
+
 ### Swap collection bag
 
 Swap `Look-in` with `Empty` on the collection bag
