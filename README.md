@@ -114,9 +114,7 @@ Displays current number of eggs collected
 ![](https://user-images.githubusercontent.com/17231890/94431354-150b2300-018d-11eb-9f2f-5ffbd85b3478.png)
 
 ### Highlight eggs
-Highlight collectorEgg colors on the ground
-
-![Barbarian assault plugin](https://i.imgur.com/t9EIg4b.gif)
+Highlight collector eggs on the ground
 
 ### Menu highlight mode
 Configures what to highlight in right-click menu
