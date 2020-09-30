@@ -170,9 +170,9 @@ Displays duration after each wave and/or round
 ### Reward points
 Gives summary of reward points in the chat after each wave and/or round
 
-![](https://user-images.githubusercontent.com/17231890/94430419-cad57200-018b-11eb-9e48-dacb7ba875ca.png)
+![](https://user-images.githubusercontent.com/17231890/94748664-b6ef6300-0379-11eb-9ba0-3565392de1b1.png)
 
 ### Rewards breakdown
 Gives summary of advanced points breakdown in the chat after each wave and/or round
 
-![](https://user-images.githubusercontent.com/17231890/94430464-e0e33280-018b-11eb-9014-fbaa2fe3f25f.png)
+![](https://user-images.githubusercontent.com/17231890/94748663-b656cc80-0379-11eb-96bb-8774e8bb493a.png)
