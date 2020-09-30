@@ -66,6 +66,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.GameObject;
+import net.runelite.api.GameState;
 import net.runelite.api.ItemComposition;
 import net.runelite.api.ItemID;
 import net.runelite.api.MenuAction;
@@ -81,6 +82,7 @@ import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.ClientTick;
 import net.runelite.api.events.GameObjectDespawned;
 import net.runelite.api.events.GameObjectSpawned;
+import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.ItemDespawned;
 import net.runelite.api.events.ItemSpawned;
@@ -109,6 +111,8 @@ import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.Text;
 import org.apache.commons.lang3.StringUtils;
 
+// TODO bugfix, turn off timer says wrong role
+
 @Slf4j
 @PluginDescriptor(
 	name = "Ba Minigame",
@@ -121,6 +125,7 @@ public class BaMinigamePlugin extends Plugin
 	public static final Color DARK_GREEN = new Color(0, 153, 0);
 	public static final Color LIGHT_BLUE = new Color(60, 124, 240);
 	public static final Color LIGHT_RED = new Color(255, 35, 35);
+	public static final int DEFAULT_ATTACK_STYLE_COLOR = 16750623;
 	private static final int BA_WAVE_NUM_INDEX = 2;
 	private static final String END_ROUND_REWARD_NEEDLE_TEXT = "<br>5";
 	private static final int MENU_THIRD_OPTION = MenuAction.GROUND_ITEM_THIRD_OPTION.getId();
@@ -194,7 +199,6 @@ public class BaMinigamePlugin extends Plugin
 	private String lastListen;
 	@Getter
 	private int lastListenItemId;
-	private AttackStyleWidget highlightedAttackStyle;
 	private Integer attackStyleTextColor;
 
 	@Provides
@@ -222,7 +226,10 @@ public class BaMinigamePlugin extends Plugin
 
 		clientThread.invokeLater(() -> updateAttackStyleText(lastListen));
 
-		setGroundItemsPluginHiddenList();
+		if (config.showGroundItemHighlights())
+		{
+			setGroundItemsPluginHiddenList();
+		}
 		disableBarbarianAssaultPluginFeatures();
 	}
 
@@ -260,7 +267,7 @@ public class BaMinigamePlugin extends Plugin
 		lastListen = null;
 		lastListenItemId = 0;
 
-		restoreAttackStyleText();
+		clientThread.invokeLater(this::restoreAttackStyleText);
 
 		restoreGroundItemsPluginHiddenList();
 		restoreBarbarianAssaultPluginFeatures();
@@ -269,76 +276,82 @@ public class BaMinigamePlugin extends Plugin
 	@Subscribe
 	private void onConfigChanged(ConfigChanged event)
 	{
-		if (!event.getGroup().equals("baMinigame"))
+		final String group = event.getGroup();
+		if (group.equals(BARBARIAN_ASSAULT_CONFIG_GROUP))
 		{
-			return;
+			// invalidate previously stored barbarian assault plugin configs
+			config.setBarbarianAssaultConfigs("");
 		}
-
-		switch (event.getKey())
+		else if (group.equals("baMinigame"))
 		{
-			case "showTimer":
+			switch (event.getKey())
 			{
-				if (!config.showTimer() && inGameBit == 1)
+				case "showTimer":
 				{
-					displayRoleSprite();
+					if (!config.showTimer() && inGameBit == 1)
+					{
+						displayRoleSprite();
+					}
+					break;
 				}
-				break;
+				case "showHpCountOverlay":
+				{
+					if (!config.showHpCountOverlay() && inGameBit == 1 && getRole() == Role.HEALER)
+					{
+						removeCountOverlay(Role.HEALER);
+					}
+					break;
+				}
+				case "showEggCountOverlay":
+				{
+					if (!config.showEggCountOverlay() && inGameBit == 1 && getRole() == Role.COLLECTOR)
+					{
+						removeCountOverlay(Role.COLLECTOR);
+					}
+					break;
+				}
+				case "showRunnerTickTimer":
+				{
+					if (config.showRunnerTickTimer() && inGameBit == 1 && getRole() == Role.DEFENDER)
+					{
+						enableRunnerTickTimer(true);
+					}
+					else
+					{
+						disableRunnerTickTimer(false);
+					}
+					break;
+				}
+				case "deathTimesMode":
+				{
+					final DeathTimesMode deathTimesMode = config.deathTimesMode();
+					if (deathTimesMode == DeathTimesMode.INFO_BOX || deathTimesMode == DeathTimesMode.INFOBOX_CHAT)
+					{
+						showDeathTimes();
+					}
+					else
+					{
+						hideDeathTimes();
+					}
+					break;
+				}
+				case "highlightAttackStyle":
+				case "highlightAttackStyleColor":
+				{
+					clientThread.invokeLater(() -> updateAttackStyleText(lastListen));
+					break;
+				}
+				case "showGroundItemHighlights":
+					if (config.showGroundItemHighlights())
+					{
+						setGroundItemsPluginHiddenList();
+					}
+					else
+					{
+						restoreGroundItemsPluginHiddenList();
+					}
+					break;
 			}
-			case "showHpCountOverlay":
-			{
-				if (!config.showHpCountOverlay() && inGameBit == 1 && getRole() == Role.HEALER)
-				{
-					removeCountOverlay(Role.HEALER);
-				}
-				break;
-			}
-			case "showEggCountOverlay":
-			{
-				if (!config.showEggCountOverlay() && inGameBit == 1 && getRole() == Role.COLLECTOR)
-				{
-					removeCountOverlay(Role.COLLECTOR);
-				}
-				break;
-			}
-			case "showRunnerTickTimer":
-			{
-				if (config.showRunnerTickTimer() && inGameBit == 1 && getRole() == Role.DEFENDER)
-				{
-					enableRunnerTickTimer(true);
-				}
-				else
-				{
-					disableRunnerTickTimer(false);
-				}
-				break;
-			}
-			case "deathTimesMode":
-			{
-				final DeathTimesMode deathTimesMode = config.deathTimesMode();
-				if (deathTimesMode == DeathTimesMode.INFO_BOX || deathTimesMode == DeathTimesMode.INFOBOX_CHAT)
-				{
-					showDeathTimes();
-				}
-				else
-				{
-					hideDeathTimes();
-				}
-				break;
-			}
-			case "highlightAttackStyle":
-			case "highlightAttackStyleColor":
-				clientThread.invokeLater(() -> updateAttackStyleText(lastListen));
-				break;
-			case "showGroundItemHighlights":
-				if (config.showGroundItemHighlights())
-				{
-					setGroundItemsPluginHiddenList();
-				}
-				else
-				{
-					restoreGroundItemsPluginHiddenList();
-				}
-				break;
 		}
 	}
 
@@ -482,10 +495,10 @@ public class BaMinigamePlugin extends Plugin
 
 		inGameBit = inGame;
 
-		/*if (inGameBit == 1)
-		{*/
-		updateEggsCount();
-		/*}*/
+		if (inGameBit == 1)
+		{
+			updateEggsCount();
+		}
 	}
 
 	@Subscribe
@@ -513,7 +526,7 @@ public class BaMinigamePlugin extends Plugin
 				final String currentListen = role.getListenText(client);
 				if (currentListen != null && !currentListen.equals(lastListen))
 				{
-					clientThread.invoke(() -> updateAttackStyleText(currentListen));
+					clientThread.invokeLater(() -> updateAttackStyleText(currentListen));
 				}
 
 				lastListen = currentListen;
@@ -589,11 +602,10 @@ public class BaMinigamePlugin extends Plugin
 
 	private void updateAttackStyleText(String listen)
 	{
+
 		restoreAttackStyleText();
 
-		final boolean highlightAttackStyle = config.highlightAttackStyle();
-
-		if (listen == null || getRole() != Role.ATTACKER || !highlightAttackStyle)
+		if (!config.highlightAttackStyle() || listen == null || getRole() != Role.ATTACKER)
 		{
 			return;
 		}
@@ -608,22 +620,23 @@ public class BaMinigamePlugin extends Plugin
 				continue;
 			}
 
-			final Color color = config.highlightAttackStyleColor();
+			final int color = Integer.decode(ColorUtil.toHexColor(config.highlightAttackStyleColor()));
 
-			highlightedAttackStyle = AttackStyleWidget.getAttackStyles()[i];
+			final AttackStyleWidget attackStyleWidget = AttackStyleWidget.getAttackStyles()[i];
 
-			final BaWidgetInfo attackStyleTextBaWidgetInfo = highlightedAttackStyle.getTextWidget();
+			final BaWidgetInfo attackStyleTextBaWidgetInfo = attackStyleWidget.getTextWidget();
 			final Widget attackStyleTextWidget = client.getWidget(attackStyleTextBaWidgetInfo.getGroupId(),
 				attackStyleTextBaWidgetInfo.getChildId());
 			if (attackStyleTextWidget != null)
 			{
 				if (attackStyleTextColor == null)
 				{
+					log.info("text color {}", attackStyleTextWidget.getTextColor());
 					attackStyleTextColor = attackStyleTextWidget.getTextColor();
+					log.info("color {}", attackStyleTextColor);
 				}
-				attackStyleTextWidget.setTextColor(Integer.decode(ColorUtil.toHexColor(color)));
+				attackStyleTextWidget.setTextColor(color);
 			}
-
 		}
 	}
 
@@ -720,17 +733,28 @@ public class BaMinigamePlugin extends Plugin
 
 	private void restoreAttackStyleText()
 	{
-		if (highlightedAttackStyle != null && attackStyleTextColor != null)
+		if (client.getGameState() != GameState.LOGGED_IN)
 		{
-			final BaWidgetInfo attackStyleTextBaWidgetInfo = highlightedAttackStyle.getTextWidget();
+			return;
+		}
+
+		final int color = attackStyleTextColor != null ? attackStyleTextColor : DEFAULT_ATTACK_STYLE_COLOR;
+
+		final int var = client.getVar(Varbits.EQUIPPED_WEAPON_TYPE);
+		final AttackStyle[] styles = WeaponType.getWeaponType(var).getAttackStyles();
+		for (int i = 0; i < styles.length; i++)
+		{
+			final AttackStyleWidget attackStyleWidget = AttackStyleWidget.getAttackStyles()[i];
+			final BaWidgetInfo attackStyleTextBaWidgetInfo = attackStyleWidget.getTextWidget();
+
 			final Widget attackStyleTextWidget = client.getWidget(attackStyleTextBaWidgetInfo.getGroupId(),
 				attackStyleTextBaWidgetInfo.getChildId());
 			if (attackStyleTextWidget != null)
 			{
-				attackStyleTextWidget.setTextColor(attackStyleTextColor);
+				attackStyleTextWidget.setTextColor(color);
 			}
 		}
-		highlightedAttackStyle = null;
+
 		attackStyleTextColor = null;
 	}
 
@@ -879,7 +903,7 @@ public class BaMinigamePlugin extends Plugin
 		removeDeathTimes();
 		lastListen = null;
 		lastListenItemId = 0;
-		restoreAttackStyleText();
+		clientThread.invokeLater(this::restoreAttackStyleText);
 	}
 
 	private void announceWaveTime()

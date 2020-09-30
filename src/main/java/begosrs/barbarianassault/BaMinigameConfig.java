@@ -56,7 +56,7 @@ public interface BaMinigameConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapQuickStart",
-		name = "Quick-start swap",
+		name = "Swap lobby ladder",
 		description = "Swap Climb-down with Quick-start on lobby ladders",
 		position = 2
 	)
@@ -67,7 +67,7 @@ public interface BaMinigameConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapGetRewards",
-		name = "Get-rewards swap",
+		name = "Swap Commander Connad",
 		description = "Swap Talk-to with Get-rewards for the Commander Connad",
 		position = 3
 	)
@@ -259,7 +259,7 @@ public interface BaMinigameConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "highlightLogsHammer",
+		keyName = "highlightGroundLogsHammer",
 		name = "Highlight ground logs/hammer",
 		description = "Highlight logs and hammer on the ground",
 		position = 4,
@@ -271,9 +271,9 @@ public interface BaMinigameConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "highlightLogsHammerColor",
+		keyName = "highlightGroundLogsHammerColor",
 		name = "Ground logs/hammer color",
-		description = "Color to highlight the bait dropped on the ground",
+		description = "Color to highlight the logs and hammer on the ground",
 		position = 5,
 		section = defenderSection
 	)
@@ -340,7 +340,7 @@ public interface BaMinigameConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapCollectionBag",
-		name = "Collection bag swap",
+		name = "Swap collection bag",
 		description = "Swap Look-in with Empty on the collection bag",
 		position = 3,
 		section = collectorSection
@@ -352,7 +352,7 @@ public interface BaMinigameConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapCollectorHorn",
-		name = "Collector horn swap",
+		name = "Swap collector horn",
 		description = "Swap Use with Tell-defensive on the collector horn",
 		position = 4,
 		section = collectorSection
@@ -364,7 +364,7 @@ public interface BaMinigameConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapDestroyEggs",
-		name = "Collector eggs swap",
+		name = "Swap collector eggs",
 		description = "Swap Use with Destroy on red/green/blue eggs",
 		position = 5,
 		section = collectorSection
