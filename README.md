@@ -7,8 +7,7 @@ The features from the barbarian assault plugin are automatically turned off. And
 
 # Ba minigame Configuration
 
---TODO update
-![Barbarian assault plugin](https://i.imgur.com/v3o2uHX.gif) 
+![Barbarian assault plugin](https://i.imgur.com/GrDI5H3.gif) 
 
 
 ### Chat colors
