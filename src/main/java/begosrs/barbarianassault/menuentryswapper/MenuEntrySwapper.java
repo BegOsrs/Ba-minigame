@@ -1,7 +1,6 @@
 /*
  * Copyright (c) 2019, 7ate9 <https://github.com/se7enAte9>
- * Copyright (c) 2019, https://openosrs.com
- * Copyright (c) 2020, <https://github.com/BegOsrs>
+ * Copyright (c) 2020, BegOsrs <https://github.com/BegOsrs>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without

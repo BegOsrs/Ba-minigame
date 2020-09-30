@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2020, BegOsrs <https://github.com/begosrs>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -56,14 +56,6 @@ public class BaWidgetID
 			static final int ROLE = 12;
 		}
 
-		static class HEALER
-		{
-			static final int TEAMMATE1 = 18;
-			static final int TEAMMATE2 = 22;
-			static final int TEAMMATE3 = 26;
-			static final int TEAMMATE4 = 30;
-		}
-
 		static class HORN_OF_GLORY
 		{
 			static final int ATTACKER = 5;
@@ -89,7 +81,6 @@ public class BaWidgetID
 			static final int EGGS_COLLECTED_POINTS = 31;
 			static final int FAILED_ATTACKS_POINTS = 32;
 			static final int BASE_POINTS = 33;
-			static final int HONOUR_POINTS_REWARD = 49;
 		}
 
 		static final int CORRECT_STYLE = 3;

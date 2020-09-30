@@ -1,6 +1,4 @@
 /*
- * Copyright (c) 2018, Cameron <https://github.com/noremac201>
- * Copyright (c) 2018, Jacob M <https://github.com/jacoblairm>
  * Copyright (c) 2020, BegOsrs <https://github.com/begosrs>
  * All rights reserved.
  *
@@ -317,7 +315,7 @@ public interface BaMinigameConfig extends Config
 	@ConfigItem(
 		keyName = "highlightGroundEggsMode",
 		name = "Highlight eggs",
-		description = "Highlight egg colors on the ground when performing the Collector role",
+		description = "Highlight egg colors on the ground",
 		position = 1,
 		section = collectorSection
 	)

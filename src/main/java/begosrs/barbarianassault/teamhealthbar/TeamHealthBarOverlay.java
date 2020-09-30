@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2019, whartd <github.com/whartd>
+ * Copyright (c) 2020, BegOsrs <https://github.com/begosrs>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
