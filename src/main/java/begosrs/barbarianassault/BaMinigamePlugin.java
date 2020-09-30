@@ -80,7 +80,6 @@ import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.ClientTick;
 import net.runelite.api.events.GameObjectDespawned;
 import net.runelite.api.events.GameObjectSpawned;
-import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.ItemDespawned;
 import net.runelite.api.events.ItemSpawned;
@@ -108,8 +107,6 @@ import net.runelite.client.util.ColorUtil;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.Text;
 import org.apache.commons.lang3.StringUtils;
-
-// TODO bugfix, turn off timer says wrong role
 
 @Slf4j
 @PluginDescriptor(
@@ -629,9 +626,7 @@ public class BaMinigamePlugin extends Plugin
 			{
 				if (attackStyleTextColor == null)
 				{
-					log.info("text color {}", attackStyleTextWidget.getTextColor());
 					attackStyleTextColor = attackStyleTextWidget.getTextColor();
-					log.info("color {}", attackStyleTextColor);
 				}
 				attackStyleTextWidget.setTextColor(color);
 			}
@@ -869,6 +864,7 @@ public class BaMinigamePlugin extends Plugin
 		if (roleSprite != null)
 		{
 			roleSprite.setHidden(false);
+			roleSprite.setSpriteId(role.getSpriteId());
 		}
 
 		final BaWidgetInfo roleTextInfo = role.getRoleText();

@@ -34,8 +34,11 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.MenuAction;
 import net.runelite.api.widgets.Widget;
@@ -46,6 +49,7 @@ import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.util.ImageUtil;
 
+@Slf4j
 @Singleton
 public class TimerOverlay extends Overlay
 {
@@ -96,10 +100,12 @@ public class TimerOverlay extends Overlay
 			return null;
 		}
 
-		final String text = roleText.getText()
-			.replaceAll("\\(.*\\) ", ""); // to remove old count
+		String text = roleText.getText();
+		// replace to remove old count
+		text = text.replaceAll("\\(.*\\) ", "");
 
 		StringBuilder stringBuilder = new StringBuilder();
+
 		if (config.showEggCountOverlay() && role == Role.COLLECTOR)
 		{
 			stringBuilder.append("(").append(wave.getCollectedEggsCount()).append(") ");
@@ -108,6 +114,7 @@ public class TimerOverlay extends Overlay
 		{
 			stringBuilder.append("(").append(wave.getHpHealed()).append(") ");
 		}
+
 		if (config.showTimer())
 		{
 			stringBuilder.append(String.format("00:%02d", wave.getTimeUntilCallChange()));
@@ -115,15 +122,14 @@ public class TimerOverlay extends Overlay
 			roleSprite.setHidden(true);
 			graphics.drawImage(clockImage, spriteBounds.x, spriteBounds.y, null);
 		}
-		else if (stringBuilder.length() > 0)
+		else
 		{
-			stringBuilder.append(text);
+			stringBuilder.append(role.getName());
+			roleSprite.setSpriteId(role.getSpriteId());
+			roleSprite.setHidden(false);
 		}
 
-		if (stringBuilder.length() > 0)
-		{
-			roleText.setText(stringBuilder.toString());
-		}
+		roleText.setText(stringBuilder.toString());
 
 		return null;
 	}
