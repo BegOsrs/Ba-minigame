@@ -99,6 +99,8 @@ Highlight logs and hammer
 
 ## Collector
 
+![](https://i.imgur.com/FOT1mmU.gif)
+
 ### Show number of eggs collected
 Displays current number of eggs collected
 
