@@ -25,6 +25,7 @@
  */
 package begosrs.barbarianassault;
 
+import begosrs.barbarianassault.api.BaSpriteID;
 import begosrs.barbarianassault.api.widgets.BaWidgetInfo;
 import com.google.common.collect.ImmutableMap;
 import java.awt.Color;
@@ -40,19 +41,19 @@ public enum Role
 	ATTACKER("Attacker", BaMinigamePlugin.RED,
 		BaWidgetInfo.BA_ATTACKER_WAVE_TEXT, BaWidgetInfo.BA_ATTACKER_LISTEN_TOP_TEXT, BaWidgetInfo.BA_HORN_OF_GLORY_COLLECTOR_LISTEN_TEXT,
 		BaWidgetInfo.BA_ATTACKER_CALL_TEXT, BaWidgetInfo.BA_HORN_OF_GLORY_COLLECTOR_LISTEN_TEXT, BaWidgetInfo.BA_ATTACKER_ROLE_TEXT,
-		BaWidgetInfo.BA_ATTACKER_ROLE_SPRITE, 768),
+		BaWidgetInfo.BA_ATTACKER_ROLE_SPRITE, BaSpriteID.BA_ATTACKER_ICON),
 	DEFENDER("Defender", BaMinigamePlugin.LIGHT_BLUE,
 		BaWidgetInfo.BA_DEFENDER_WAVE_TEXT, BaWidgetInfo.BA_DEFENDER_LISTEN_TEXT, BaWidgetInfo.BA_HORN_OF_GLORY_HEALER_LISTEN_TEXT,
 		BaWidgetInfo.BA_DEFENDER_CALL_TEXT, BaWidgetInfo.BA_HORN_OF_GLORY_HEALER_LISTEN_TEXT, BaWidgetInfo.BA_DEFENDER_ROLE_TEXT,
-		BaWidgetInfo.BA_DEFENDER_ROLE_SPRITE, 769), // confirmed
+		BaWidgetInfo.BA_DEFENDER_ROLE_SPRITE, BaSpriteID.BA_DEFENDER_ICON),
 	COLLECTOR("Collector", Color.YELLOW,
 		BaWidgetInfo.BA_COLLECTOR_WAVE_TEXT, BaWidgetInfo.BA_COLLECTOR_LISTEN_TEXT, BaWidgetInfo.BA_HORN_OF_GLORY_ATTACKER_LISTEN_TEXT,
 		BaWidgetInfo.BA_COLLECTOR_CALL_TEXT, BaWidgetInfo.BA_HORN_OF_GLORY_ATTACKER_LISTEN_TEXT, BaWidgetInfo.BA_COLLECTOR_ROLE_TEXT,
-		BaWidgetInfo.BA_COLLECTOR_ROLE_SPRITE, 770),
+		BaWidgetInfo.BA_COLLECTOR_ROLE_SPRITE, BaSpriteID.BA_COLLECTOR_ICON),
 	HEALER("Healer", BaMinigamePlugin.DARK_GREEN,
 		BaWidgetInfo.BA_HEALER_WAVE_TEXT, BaWidgetInfo.BA_HEALER_LISTEN_TEXT, BaWidgetInfo.BA_HORN_OF_GLORY_DEFENDER_LISTEN_TEXT,
 		BaWidgetInfo.BA_HEALER_CALL_TEXT, BaWidgetInfo.BA_HORN_OF_GLORY_DEFENDER_LISTEN_TEXT, BaWidgetInfo.BA_HEALER_ROLE_TEXT,
-		BaWidgetInfo.BA_HEALER_ROLE_SPRITE, 771);
+		BaWidgetInfo.BA_HEALER_ROLE_SPRITE, BaSpriteID.BA_HEALER_ICON);
 
 	@Getter
 	private final String name;

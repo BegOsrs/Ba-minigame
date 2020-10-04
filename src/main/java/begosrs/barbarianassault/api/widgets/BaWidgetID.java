@@ -47,7 +47,7 @@ public class BaWidgetID
 
 	static class BarbarianAssault
 	{
-		static class ATTACKER
+		static class Attacker
 		{
 			static final int LISTEN_TOP = 7;
 			static final int LISTEN_BOTTOM = 8;
@@ -56,7 +56,7 @@ public class BaWidgetID
 			static final int ROLE = 12;
 		}
 
-		static class HORN_OF_GLORY
+		static class HornOfGlory
 		{
 			static final int ATTACKER = 5;
 			static final int DEFENDER = 6;
@@ -64,7 +64,7 @@ public class BaWidgetID
 			static final int HEALER = 8;
 		}
 
-		static class REWARD_VALUES
+		static class RewardValues
 		{
 			static final int RUNNERS_PASSED = 14;
 			static final int HITPOINTS_REPLENISHED = 19;
