@@ -7,7 +7,7 @@ The features from the barbarian assault plugin are automatically turned off. And
 
 # Ba minigame Configuration
 
-![](https://i.imgur.com/afEEEfW.gif)
+![](https://i.imgur.com/tg1kfPL.gif)
 
 ### Chat colors
 Enable game chat colors on messages announced by this plugin
@@ -43,9 +43,11 @@ Define the mode of all inventory highlights
 
 ![](https://user-images.githubusercontent.com/17231890/94434338-8947c580-0191-11eb-9a22-1f4a46f1e689.png) ![](https://user-images.githubusercontent.com/17231890/94433736-ac25aa00-0190-11eb-8595-306a8a7156ac.png)
 
-### Ground item highlights
+### Ground items highlight
 Show ground item highlights
 
+### Ground tiles highlight
+Configures whether or not to highlight tiles containing ground items
 
 ## Attacker
 
@@ -159,6 +161,8 @@ Displays a health bar where a teammate's remaining health is located
 
 ![](https://user-images.githubusercontent.com/17231890/94446578-bc458580-01a0-11eb-83fc-f517bea2dc3a.png)
 
+### Health bar transparency
+Configures the amount of transparency on the teammate health bar
 
 ## Post-game
 
