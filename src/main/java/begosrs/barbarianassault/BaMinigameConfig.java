@@ -77,7 +77,7 @@ public interface BaMinigameConfig extends Config
 
 	@ConfigSection(
 		name = "In-game",
-		description = "configurations related to features inside a barbarian assault game",
+		description = "Configurations related to features inside a barbarian assault game",
 		position = 4,
 		closedByDefault = true
 	)
@@ -481,7 +481,7 @@ public interface BaMinigameConfig extends Config
 
 	@ConfigSection(
 		name = "Post-game",
-		description = "configurations related to features after a barbarian assault game",
+		description = "Configurations related to features after a barbarian assault game",
 		position = 9,
 		closedByDefault = true
 	)
