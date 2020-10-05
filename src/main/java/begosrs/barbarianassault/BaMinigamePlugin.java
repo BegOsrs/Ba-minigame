@@ -52,11 +52,14 @@ import java.awt.image.BufferedImage;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import javax.inject.Inject;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -124,7 +127,9 @@ public class BaMinigamePlugin extends Plugin
 	private static final int BA_WAVE_NUM_INDEX = 2;
 	private static final String END_ROUND_REWARD_NEEDLE_TEXT = "<br>5";
 	private static final int MENU_THIRD_OPTION = MenuAction.GROUND_ITEM_THIRD_OPTION.getId();
+	private static final String BA_MINIGAME_CONFIG_GROUP = "baMinigame";
 	private static final String GROUND_ITEMS_CONFIG_GROUP = "grounditems";
+	private static final String GROUND_ITEMS_CONFIG_HIGHLIGHTED_ITENS = "highlightedItems";
 	private static final String GROUND_ITEMS_CONFIG_HIDDEN_ITENS = "hiddenItems";
 	private static final String[] GROUND_ITEMS_HIDDEN_LIST = {
 		"Green egg", "Red egg", "Blue egg", "Hammer", "Logs", "Yellow egg", "Crackers", "Tofu", "Worms"
@@ -223,7 +228,7 @@ public class BaMinigamePlugin extends Plugin
 
 		if (config.showGroundItemHighlights())
 		{
-			setGroundItemsPluginHiddenList();
+			setGroundItemsPluginLists();
 		}
 		disableBarbarianAssaultPluginFeatures();
 	}
@@ -264,7 +269,7 @@ public class BaMinigamePlugin extends Plugin
 
 		clientThread.invokeLater(this::restoreAttackStyleText);
 
-		restoreGroundItemsPluginHiddenList();
+		restoreGroundItemsPluginLists();
 		restoreBarbarianAssaultPluginFeatures();
 	}
 
@@ -272,81 +277,112 @@ public class BaMinigamePlugin extends Plugin
 	private void onConfigChanged(ConfigChanged event)
 	{
 		final String group = event.getGroup();
-		if (group.equals(BARBARIAN_ASSAULT_CONFIG_GROUP))
+		final String key = event.getKey();
+		final String oldValue = event.getOldValue();
+		final String newValue = event.getNewValue();
+		switch (group)
 		{
-			// invalidate previously stored barbarian assault plugin configs
-			config.setBarbarianAssaultConfigs("");
-		}
-		else if (group.equals("baMinigame"))
-		{
-			switch (event.getKey())
+			case BARBARIAN_ASSAULT_CONFIG_GROUP:
 			{
-				case "showTimer":
-				{
-					if (!config.showTimer() && inGameBit == 1)
-					{
-						displayRoleSprite();
-					}
-					break;
-				}
-				case "showHpCountOverlay":
-				{
-					if (!config.showHpCountOverlay() && inGameBit == 1 && getRole() == Role.HEALER)
-					{
-						removeCountOverlay(Role.HEALER);
-					}
-					break;
-				}
-				case "showEggCountOverlay":
-				{
-					if (!config.showEggCountOverlay() && inGameBit == 1 && getRole() == Role.COLLECTOR)
-					{
-						removeCountOverlay(Role.COLLECTOR);
-					}
-					break;
-				}
-				case "showRunnerTickTimer":
-				{
-					if (config.showRunnerTickTimer() && inGameBit == 1 && getRole() == Role.DEFENDER)
-					{
-						enableRunnerTickTimer(true);
-					}
-					else
-					{
-						disableRunnerTickTimer(false);
-					}
-					break;
-				}
-				case "deathTimesMode":
-				{
-					final DeathTimesMode deathTimesMode = config.deathTimesMode();
-					if (deathTimesMode == DeathTimesMode.INFO_BOX || deathTimesMode == DeathTimesMode.INFOBOX_CHAT)
-					{
-						showDeathTimes();
-					}
-					else
-					{
-						hideDeathTimes();
-					}
-					break;
-				}
-				case "highlightAttackStyle":
-				case "highlightAttackStyleColor":
-				{
-					clientThread.invokeLater(() -> updateAttackStyleText(lastListen));
-					break;
-				}
-				case "showGroundItemHighlights":
-					if (config.showGroundItemHighlights())
-					{
-						setGroundItemsPluginHiddenList();
-					}
-					else
-					{
-						restoreGroundItemsPluginHiddenList();
-					}
-					break;
+				config.setBarbarianAssaultConfigs("");
+				break;
 			}
+			case BA_MINIGAME_CONFIG_GROUP:
+				switch (key)
+				{
+					case "showTimer":
+					{
+						if (!config.showTimer() && inGameBit == 1)
+						{
+							displayRoleSprite();
+						}
+						break;
+					}
+					case "showHpCountOverlay":
+					{
+						if (!config.showHpCountOverlay() && inGameBit == 1 && getRole() == Role.HEALER)
+						{
+							removeCountOverlay(Role.HEALER);
+						}
+						break;
+					}
+					case "showEggCountOverlay":
+					{
+						if (!config.showEggCountOverlay() && inGameBit == 1 && getRole() == Role.COLLECTOR)
+						{
+							removeCountOverlay(Role.COLLECTOR);
+						}
+						break;
+					}
+					case "showRunnerTickTimer":
+					{
+						if (config.showRunnerTickTimer() && inGameBit == 1 && getRole() == Role.DEFENDER)
+						{
+							enableRunnerTickTimer(true);
+						}
+						else
+						{
+							disableRunnerTickTimer(false);
+						}
+						break;
+					}
+					case "deathTimesMode":
+					{
+						final DeathTimesMode deathTimesMode = config.deathTimesMode();
+						if (deathTimesMode == DeathTimesMode.INFO_BOX || deathTimesMode == DeathTimesMode.INFOBOX_CHAT)
+						{
+							showDeathTimes();
+						}
+						else
+						{
+							hideDeathTimes();
+						}
+						break;
+					}
+					case "highlightAttackStyle":
+					case "highlightAttackStyleColor":
+					{
+						clientThread.invokeLater(() -> updateAttackStyleText(lastListen));
+						break;
+					}
+					case "showGroundItemHighlights":
+					{
+						if (config.showGroundItemHighlights())
+						{
+							setGroundItemsPluginLists();
+						}
+						else
+						{
+							restoreGroundItemsPluginLists();
+						}
+						break;
+					}
+					case "groundItemsPluginHighlightedList":
+					{
+						if (!oldValue.isEmpty() && newValue.isEmpty())
+						{
+							config.setGroundItemsPluginHighlightedList(oldValue);
+						}
+						break;
+					}
+					case "groundItemsPluginHiddenList":
+					{
+						if (!oldValue.isEmpty() && newValue.isEmpty())
+						{
+							config.setGroundItemsPluginHiddenList(oldValue);
+						}
+						break;
+					}
+					case "barbarianAssaultConfigs":
+					{
+						if (!oldValue.isEmpty() && newValue.isEmpty())
+						{
+							config.setBarbarianAssaultConfigs(oldValue);
+						}
+						break;
+					}
+				}
+				break;
 		}
 	}
 
@@ -1247,35 +1283,97 @@ public class BaMinigamePlugin extends Plugin
 		deathTimes.clear();
 	}
 
-	private void setGroundItemsPluginHiddenList()
+	private void setGroundItemsPluginLists()
 	{
-		final String hiddenItems = configManager.getConfiguration(GROUND_ITEMS_CONFIG_GROUP, GROUND_ITEMS_CONFIG_HIDDEN_ITENS);
-		final StringBuilder itemsListBuilder = new StringBuilder();
-		for (String hiddenItem : GROUND_ITEMS_HIDDEN_LIST)
+		String highlightedItems = Optional
+			.ofNullable(configManager.getConfiguration(GROUND_ITEMS_CONFIG_GROUP, GROUND_ITEMS_CONFIG_HIGHLIGHTED_ITENS))
+			.orElse("");
+		final List<String> highlightedItemsList = Arrays.stream(highlightedItems.split(","))
+			.map(i -> i.trim().toLowerCase()).collect(Collectors.toList());
+
+		final String hiddenItems = Optional
+			.ofNullable(configManager.getConfiguration(GROUND_ITEMS_CONFIG_GROUP, GROUND_ITEMS_CONFIG_HIDDEN_ITENS))
+			.orElse("");
+		final List<String> hiddenItemsList = Arrays.stream(hiddenItems.split(","))
+			.map(i -> i.trim().toLowerCase()).collect(Collectors.toList());
+
+		final StringBuilder highlightedItemsListBuilder = new StringBuilder();
+		final StringBuilder hiddenItemsListBuilder = new StringBuilder();
+		for (String item : GROUND_ITEMS_HIDDEN_LIST)
 		{
-			if (!StringUtils.containsIgnoreCase(hiddenItems, hiddenItem))
+			if (highlightedItemsList.contains(item.toLowerCase()))
 			{
-				if (itemsListBuilder.length() > 0)
+				if (highlightedItemsListBuilder.length() > 0)
 				{
-					itemsListBuilder.append(", ");
+					highlightedItemsListBuilder.append(",");
 				}
-				itemsListBuilder.append(hiddenItem);
+				highlightedItemsListBuilder.append(item);
+
+				// regex to replace any white spaces, followed by 0 or more commas, followed by any white spaces,
+				// (?i) mode to match case insensitive, followed by any white spaces, followed by 0 or more commas,
+				// and finally followed by any white spaces
+				highlightedItems = highlightedItems.replaceAll("\\s*,*\\s*(?i)" + Pattern.quote(item) + "\\s*,*\\s*", ",");
+
+				if (highlightedItems.startsWith(","))
+				{
+					highlightedItems = highlightedItems.substring(1);
+				}
+				if (highlightedItems.endsWith(","))
+				{
+					highlightedItems = highlightedItems.substring(0, highlightedItems.length() - 1);
+				}
+			}
+
+			if (!hiddenItemsList.contains(item.toLowerCase()))
+			{
+				if (hiddenItemsListBuilder.length() > 0)
+				{
+					hiddenItemsListBuilder.append(",");
+				}
+				hiddenItemsListBuilder.append(item);
 			}
 		}
 
 		final StringBuilder hiddenItemsBuilder = new StringBuilder(hiddenItems);
-		if (itemsListBuilder.length() > 0)
+		if (hiddenItemsListBuilder.length() > 0 && !hiddenItems.endsWith(","))
 		{
-			hiddenItemsBuilder.append(", ");
+			hiddenItemsBuilder.append(",");
 		}
-		hiddenItemsBuilder.append(itemsListBuilder);
+		hiddenItemsBuilder.append(hiddenItemsListBuilder);
 
-		config.setGroundItemsPluginHiddenList(itemsListBuilder.toString());
+		config.setGroundItemsPluginHighlightedList(highlightedItemsListBuilder.toString());
+		config.setGroundItemsPluginHiddenList(hiddenItemsListBuilder.toString());
+
+		configManager.setConfiguration(GROUND_ITEMS_CONFIG_GROUP, GROUND_ITEMS_CONFIG_HIGHLIGHTED_ITENS, highlightedItems);
 		configManager.setConfiguration(GROUND_ITEMS_CONFIG_GROUP, GROUND_ITEMS_CONFIG_HIDDEN_ITENS, hiddenItemsBuilder.toString());
 	}
 
-	private void restoreGroundItemsPluginHiddenList()
+	private void restoreGroundItemsPluginLists()
 	{
+		String highlightedItems = Optional
+			.ofNullable(configManager.getConfiguration(GROUND_ITEMS_CONFIG_GROUP, GROUND_ITEMS_CONFIG_HIGHLIGHTED_ITENS))
+			.orElse("");
+		StringBuilder highlightedItemsBuilder = new StringBuilder(highlightedItems);
+		String[] highlightedItemsArray = config.getGroundItemsPluginHighlightedList().split(",");
+		final List<String> highlightedItemsList = Arrays.stream(highlightedItems.split(","))
+			.map(i -> i.trim().toLowerCase()).collect(Collectors.toList());
+
+		for (String s : highlightedItemsArray)
+		{
+			String item = s.trim();
+			if (!highlightedItemsList.contains(item.toLowerCase()))
+			{
+				if (!highlightedItems.isEmpty() && !highlightedItems.endsWith(","))
+				{
+					highlightedItemsBuilder.append(",");
+				}
+				highlightedItemsBuilder.append(item);
+			}
+		}
+
+		configManager.setConfiguration(GROUND_ITEMS_CONFIG_GROUP, GROUND_ITEMS_CONFIG_HIGHLIGHTED_ITENS, highlightedItemsBuilder.toString());
+		config.setGroundItemsPluginHighlightedList("");
+
 		String hiddenItems = configManager.getConfiguration(GROUND_ITEMS_CONFIG_GROUP, GROUND_ITEMS_CONFIG_HIDDEN_ITENS);
 		final String[] list = config.getGroundItemsPluginHiddenList().split(",");
 		for (String item : list)

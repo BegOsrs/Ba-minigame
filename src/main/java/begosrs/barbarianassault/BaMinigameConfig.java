@@ -77,7 +77,7 @@ public interface BaMinigameConfig extends Config
 
 	@ConfigSection(
 		name = "In-game",
-		description = "",
+		description = "configurations related to features inside a barbarian assault game",
 		position = 4,
 		closedByDefault = true
 	)
@@ -481,7 +481,7 @@ public interface BaMinigameConfig extends Config
 
 	@ConfigSection(
 		name = "Post-game",
-		description = "",
+		description = "configurations related to features after a barbarian assault game",
 		position = 9,
 		closedByDefault = true
 	)
@@ -522,6 +522,25 @@ public interface BaMinigameConfig extends Config
 	{
 		return RewardsBreakdownMode.ROUND;
 	}
+
+	@ConfigItem(
+		keyName = "groundItemsPluginHighlightedList",
+		name = "Ground items highlighted list",
+		description = "Stores all the items automatically removed from the ground items plugin highlighted list",
+		hidden = true
+	)
+	default String getGroundItemsPluginHighlightedList()
+	{
+		return "";
+	}
+
+	@ConfigItem(
+		keyName = "groundItemsPluginHighlightedList",
+		name = "",
+		description = "",
+		hidden = true
+	)
+	void setGroundItemsPluginHighlightedList(String list);
 
 	@ConfigItem(
 		keyName = "groundItemsPluginHiddenList",

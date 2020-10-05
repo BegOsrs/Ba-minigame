@@ -127,6 +127,7 @@ public class TeamHealthBarOverlay extends Overlay
 	private Color getBarColor(double ratio)
 	{
 		final int transparency = config.teammateHealthBarTransparency();
+
 		if (ratio <= 0.33)
 		{
 			return new Color(225, 35, 0, 255 - transparency);
@@ -136,6 +137,7 @@ public class TeamHealthBarOverlay extends Overlay
 		{
 			return new Color(146, 146, 0, 255 - transparency);
 		}
+
 		return new Color(10, 146, 5, 255 - transparency);
 	}
 }
