@@ -61,10 +61,6 @@ public class TeamHealthBarOverlay extends Overlay
 		private final int width;
 	}
 
-	private static final Color HP_HIGH = new Color(10, 146, 5, 75);
-	private static final Color HP_MID = new Color(146, 146, 0, 115);
-	private static final Color HP_LOW = new Color(225, 35, 0, 75);
-
 	private final Client client;
 	private final BaMinigamePlugin plugin;
 	private final BaMinigameConfig config;
@@ -130,16 +126,16 @@ public class TeamHealthBarOverlay extends Overlay
 
 	private Color getBarColor(double ratio)
 	{
+		final int transparency = config.teammateHealthBarTransparency();
 		if (ratio <= 0.33)
 		{
-			return HP_LOW;
+			return new Color(225, 35, 0, 255 - transparency);
 		}
 
 		if (ratio <= 0.66)
 		{
-			return HP_MID;
+			return new Color(146, 146, 0, 255 - transparency);
 		}
-
-		return HP_HIGH;
+		return new Color(10, 146, 5, 255 - transparency);
 	}
 }

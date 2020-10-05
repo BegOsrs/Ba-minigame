@@ -37,6 +37,7 @@ import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.ConfigSection;
+import net.runelite.client.config.Range;
 
 @ConfigGroup("baMinigame")
 public interface BaMinigameConfig extends Config
@@ -463,6 +464,19 @@ public interface BaMinigameConfig extends Config
 	default boolean showTeammateHealthBars()
 	{
 		return true;
+	}
+
+	@Range(max = 255)
+	@ConfigItem(
+		keyName = "teammateHealthBarTransparency",
+		name = "Health bar transparency",
+		description = "Configures the amount of transparency on the teammate health bar",
+		position = 6,
+		section = healerSection
+	)
+	default int teammateHealthBarTransparency()
+	{
+		return 200;
 	}
 
 	@ConfigSection(
