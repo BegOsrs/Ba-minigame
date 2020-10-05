@@ -35,7 +35,7 @@ public enum MenuHighlightMode
 	OPTION("Option"),
 	NAME("Name"),
 	OPTION_NAME("Option/Name"),
-	DISABLED("Disabled");
+	DISABLED("Disable");
 
 	private final String name;
 

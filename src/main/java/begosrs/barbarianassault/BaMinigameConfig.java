@@ -132,7 +132,7 @@ public interface BaMinigameConfig extends Config
 
 	@ConfigItem(
 		keyName = "showGroundItemHighlights",
-		name = "Ground item highlights",
+		name = "Ground items highlight",
 		description = "Show ground item highlights",
 		section = inGameSection,
 		position = 4
@@ -142,10 +142,22 @@ public interface BaMinigameConfig extends Config
 		return true;
 	}
 
+	@ConfigItem(
+		keyName = "highlightGroundTiles",
+		name = "Ground tiles highlight",
+		description = "Configures whether or not to highlight tiles containing ground items",
+		section = inGameSection,
+		position = 5
+	)
+	default boolean highlightGroundTiles()
+	{
+		return false;
+	}
+
 	@ConfigSection(
 		name = "Attacker",
 		description = "Options associated to the Attacker role",
-		position = 5,
+		position = 6,
 		closedByDefault = true
 	)
 	String attackerSection = "attacker";
@@ -202,7 +214,7 @@ public interface BaMinigameConfig extends Config
 	@ConfigSection(
 		name = "Defender",
 		description = "Options associated to the Defender role",
-		position = 6,
+		position = 7,
 		closedByDefault = true
 	)
 	String defenderSection = "defender";
@@ -295,7 +307,7 @@ public interface BaMinigameConfig extends Config
 	@ConfigSection(
 		name = "Collector",
 		description = "Options associated to the Collector role",
-		position = 7,
+		position = 8,
 		closedByDefault = true
 	)
 	String collectorSection = "collector";
@@ -375,7 +387,7 @@ public interface BaMinigameConfig extends Config
 	@ConfigSection(
 		name = "Healer",
 		description = "Options associated to the Healer role",
-		position = 8,
+		position = 9,
 		closedByDefault = true
 	)
 	String healerSection = "healer";

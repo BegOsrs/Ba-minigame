@@ -33,7 +33,7 @@ public enum GroundEggsMode
 {
 	CALLED("Called"),
 	ALL("All"),
-	DISABLED("Disabled");
+	DISABLED("Disable");
 
 	private final String name;
 

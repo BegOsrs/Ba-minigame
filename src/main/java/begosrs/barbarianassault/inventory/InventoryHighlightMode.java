@@ -33,7 +33,7 @@ public enum InventoryHighlightMode
 {
 	OVERLAY("Overlay"),
 	OUTLINE("Outline"),
-	DISABLED("Disabled");
+	DISABLED("Disable");
 
 	private final String name;
 

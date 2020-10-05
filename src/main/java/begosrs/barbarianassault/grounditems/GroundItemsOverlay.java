@@ -27,8 +27,10 @@ package begosrs.barbarianassault.grounditems;
 import begosrs.barbarianassault.BaMinigameConfig;
 import begosrs.barbarianassault.BaMinigamePlugin;
 import begosrs.barbarianassault.Role;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Polygon;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,6 +48,7 @@ import net.runelite.api.coords.WorldPoint;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPanel;
 import net.runelite.client.ui.overlay.OverlayPosition;
+import net.runelite.client.ui.overlay.OverlayUtil;
 import net.runelite.client.ui.overlay.components.TextComponent;
 import net.runelite.client.util.QuantityFormatter;
 
@@ -185,6 +188,18 @@ public class GroundItemsOverlay extends OverlayPanel
 				continue;
 			}
 
+			final Color color = plugin.getColorForGroundItemId(item.getId());
+
+			if (config.highlightGroundTiles())
+			{
+				final Polygon poly = Perspective.getCanvasTilePoly(client, groundPoint);
+
+				if (poly != null)
+				{
+					OverlayUtil.renderPolygon(graphics, poly, color);
+				}
+			}
+
 			itemStringBuilder.append(item.getName());
 
 			if (item.getQuantity() > 1)
@@ -221,7 +236,7 @@ public class GroundItemsOverlay extends OverlayPanel
 			final int textY = textPoint.getY() - (STRING_GAP * offset);
 
 			textComponent.setText(itemString);
-			textComponent.setColor(plugin.getColorForGroundItemId(item.getId()));
+			textComponent.setColor(color);
 			textComponent.setPosition(new java.awt.Point(textX, textY));
 			textComponent.render(graphics);
 		}

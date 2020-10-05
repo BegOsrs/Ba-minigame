@@ -34,7 +34,7 @@ public enum DeathTimesMode
 	INFO_BOX("Info Box"),
 	CHAT("Chat"),
 	INFOBOX_CHAT("Info Box/Chat"),
-	DISABLED("Disabled");
+	DISABLED("Disable");
 
 	private final String name;
 

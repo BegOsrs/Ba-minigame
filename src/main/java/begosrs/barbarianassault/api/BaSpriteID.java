@@ -27,8 +27,8 @@ package begosrs.barbarianassault.api;
 public class BaSpriteID
 {
 
-		public static final int BA_ATTACKER_ICON = 768;
-		public static final int BA_DEFENDER_ICON = 769;
-		public static final int BA_COLLECTOR_ICON = 770;
-		public static final int BA_HEALER_ICON = 771;
+	public static final int BA_ATTACKER_ICON = 768;
+	public static final int BA_DEFENDER_ICON = 769;
+	public static final int BA_COLLECTOR_ICON = 770;
+	public static final int BA_HEALER_ICON = 771;
 }

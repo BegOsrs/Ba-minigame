@@ -34,7 +34,7 @@ public enum DurationMode
 	WAVE("Wave"),
 	ROUND("Round"),
 	WAVE_ROUND("Wave/Round"),
-	DISABLED("Disabled");
+	DISABLED("Disable");
 
 	private final String name;
 
