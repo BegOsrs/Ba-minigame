@@ -164,7 +164,7 @@ public class GroundItemsOverlay extends OverlayPanel
 	{
 		final Player player = client.getLocalPlayer();
 
-		if (player == null || client.getViewportWidget() == null)
+		if (player == null)
 		{
 			return;
 		}
