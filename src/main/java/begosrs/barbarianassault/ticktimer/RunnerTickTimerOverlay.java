@@ -64,7 +64,9 @@ public class RunnerTickTimerOverlay extends OverlayPanel
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (config.showRunnerTickTimer() && plugin.getRole() == Role.DEFENDER)
+		final Role role = plugin.getRole();
+		if (config.showRunnerTickTimerDefender() && role == Role.DEFENDER
+			|| config.showRunnerTickTimerAttacker() && role == Role.ATTACKER)
 		{
 			final RunnerTickTimer runnerTickTimer = plugin.getRunnerTickTimer();
 			if (runnerTickTimer != null && runnerTickTimer.isDisplaying())
@@ -72,10 +74,7 @@ public class RunnerTickTimerOverlay extends OverlayPanel
 				final String tickTimer = runnerTickTimer.getText();
 				if (tickTimer != null)
 				{
-					panelComponent.getChildren().add(TitleComponent.builder()
-						.text(tickTimer)
-						.color(Color.WHITE)
-						.build());
+					panelComponent.getChildren().add(TitleComponent.builder().text(tickTimer).color(Color.WHITE).build());
 					panelComponent.setPreferredSize(new Dimension(DEFAULT_WIDTH, 0));
 				}
 

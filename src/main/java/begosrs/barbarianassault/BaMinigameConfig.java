@@ -212,6 +212,18 @@ public interface BaMinigameConfig extends Config
 		return Color.GREEN;
 	}
 
+	@ConfigItem(
+		keyName = "showRunnerTickTimerAttacker",
+		name = "Show runner tick timer",
+		description = "Shows the current cycle tick of runners",
+		position = 4,
+		section = attackerSection
+	)
+	default boolean showRunnerTickTimerAttacker()
+	{
+		return false;
+	}
+
 	@ConfigSection(
 		name = "Defender",
 		description = "Options associated to the Defender role",
@@ -294,13 +306,13 @@ public interface BaMinigameConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "showRunnerTickTimer",
+		keyName = "showRunnerTickTimerDefender",
 		name = "Show runner tick timer",
 		description = "Shows the current cycle tick of runners",
 		position = 6,
 		section = defenderSection
 	)
-	default boolean showRunnerTickTimer()
+	default boolean showRunnerTickTimerDefender()
 	{
 		return true;
 	}

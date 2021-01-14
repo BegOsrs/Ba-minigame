@@ -314,16 +314,16 @@ public class BaMinigamePlugin extends Plugin
 						}
 						break;
 					}
-					case "showRunnerTickTimer":
+					case "showRunnerTickTimerDefender":
 					{
-						if (config.showRunnerTickTimer() && inGameBit == 1 && getRole() == Role.DEFENDER)
-						{
-							enableRunnerTickTimer(true);
-						}
-						else
-						{
-							disableRunnerTickTimer(false);
-						}
+						final boolean display = config.showRunnerTickTimerDefender() && inGameBit == 1 && getRole() == Role.DEFENDER;
+						enableRunnerTickTimer(display);
+						break;
+					}
+					case "showRunnerTickTimerAttacker":
+					{
+						final boolean display = config.showRunnerTickTimerAttacker() && inGameBit == 1 && getRole() == Role.ATTACKER;
+						enableRunnerTickTimer(display);
 						break;
 					}
 					case "deathTimesMode":
@@ -412,12 +412,14 @@ public class BaMinigamePlugin extends Plugin
 			case BaWidgetID.BA_ATTACKER_GROUP_ID:
 			{
 				startWave(Role.ATTACKER);
+				final boolean display = config.showRunnerTickTimerAttacker();
+				enableRunnerTickTimer(display);
 				break;
 			}
 			case BaWidgetID.BA_DEFENDER_GROUP_ID:
 			{
 				startWave(Role.DEFENDER);
-				final boolean display = config.showRunnerTickTimer();
+				final boolean display = config.showRunnerTickTimerDefender();
 				enableRunnerTickTimer(display);
 				break;
 			}
