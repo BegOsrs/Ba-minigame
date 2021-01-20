@@ -83,12 +83,12 @@ public class BaWidgetID
 			static final int BASE_POINTS = 33;
 		}
 
-		static final int CORRECT_STYLE = 3;
-		static final int CURRENT_WAVE = 5;
-		static final int LISTEN = 7;
-		static final int TO_CALL = 9;
-		static final int ROLE_SPRITE = 10;
-		static final int ROLE = 11;
+		static final int CORRECT_STYLE = 4;
+		static final int CURRENT_WAVE = 6;
+		static final int LISTEN = 8;
+		static final int TO_CALL = 10;
+		static final int ROLE_SPRITE = 11;
+		static final int ROLE = 12;
 		static final int REWARD_TEXT = 57;
 	}
 
