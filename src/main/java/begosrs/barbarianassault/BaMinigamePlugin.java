@@ -115,7 +115,7 @@ import org.apache.commons.lang3.StringUtils;
 @PluginDescriptor(
 	name = "Ba Minigame",
 	description = "Includes many features to enhance the barbarian assault minigame gameplay experience",
-	tags = {"overlay", "b.a.", "barbarian assault", "minigame", "attacker", "defender", "collector", "healer"}
+	tags = {"overlay", "b.a.", "barbarian assault", "minigame", "attacker", "defender", "collector", "healer", "plugin hub"}
 )
 public class BaMinigamePlugin extends Plugin
 {
@@ -887,6 +887,20 @@ public class BaMinigamePlugin extends Plugin
 
 		timer.setWaveStartTime();
 		wave = new Wave(client, currentWave, role, timer);
+
+		setCallFlashColor(role);
+	}
+
+	private void setCallFlashColor(Role role) {
+		final BaWidgetInfo widgetInfo = role.getCallFlash();
+		final Widget callFlashWidget = client.getWidget(widgetInfo.getGroupId(), widgetInfo.getChildId());
+		if (callFlashWidget != null)
+		{
+			final Color flashColor = config.callChangeFlashColor();
+			final int color = Integer.decode(ColorUtil.toHexColor(new Color(flashColor.getRed(), flashColor.getGreen(), flashColor.getBlue())));
+			callFlashWidget.setTextColor(color);
+			callFlashWidget.setOpacity(255 - flashColor.getAlpha());
+		}
 	}
 
 	private void displayRoleSprite()

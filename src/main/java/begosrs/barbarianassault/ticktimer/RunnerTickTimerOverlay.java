@@ -65,8 +65,8 @@ public class RunnerTickTimerOverlay extends OverlayPanel
 	public Dimension render(Graphics2D graphics)
 	{
 		final Role role = plugin.getRole();
-		if (config.showRunnerTickTimerDefender() && role == Role.DEFENDER
-			|| config.showRunnerTickTimerAttacker() && role == Role.ATTACKER)
+		if (role == Role.DEFENDER && config.showRunnerTickTimerDefender() ||
+			role == Role.ATTACKER && config.showRunnerTickTimerAttacker())
 		{
 			final RunnerTickTimer runnerTickTimer = plugin.getRunnerTickTimer();
 			if (runnerTickTimer != null && runnerTickTimer.isDisplaying())
