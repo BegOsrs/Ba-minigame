@@ -306,14 +306,6 @@ public class BaMinigamePlugin extends Plugin
 						}
 						break;
 					}
-					case "callChangeFlashColor":
-					{
-						if (inGameBit == 1 && wave != null && wave.getRole() != null)
-						{
-							setCallFlashColor(wave.getRole());
-						}
-						break;
-					}
 					case "showHpCountOverlay":
 					{
 						if (!config.showHpCountOverlay() && inGameBit == 1 && getRole() == Role.HEALER)
