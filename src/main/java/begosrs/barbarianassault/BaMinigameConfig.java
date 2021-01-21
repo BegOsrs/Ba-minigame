@@ -97,7 +97,7 @@ public interface BaMinigameConfig extends Config
 
 	@Alpha
 	@ConfigItem(
-		keyName = "showTimer",
+		keyName = "callChangeFlashColor",
 		name = "Call change flash color",
 		description = "Select the color to flash the call change",
 		section = inGameSection,
