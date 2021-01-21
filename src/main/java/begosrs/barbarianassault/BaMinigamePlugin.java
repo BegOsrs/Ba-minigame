@@ -290,6 +290,14 @@ public class BaMinigamePlugin extends Plugin
 			case BA_MINIGAME_CONFIG_GROUP:
 				switch (key)
 				{
+					case "callChangeFlashColor":
+					{
+						if (inGameBit == 1 && wave != null && wave.getRole() != null)
+						{
+							setCallFlashColor(wave.getRole());
+						}
+						break;
+					}
 					case "showTimer":
 					{
 						if (!config.showTimer() && inGameBit == 1)
