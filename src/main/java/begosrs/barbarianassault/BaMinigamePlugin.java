@@ -274,7 +274,7 @@ public class BaMinigamePlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
+	public void onConfigChanged(ConfigChanged event)
 	{
 		final String group = event.getGroup();
 		final String key = event.getKey();
@@ -295,6 +295,14 @@ public class BaMinigamePlugin extends Plugin
 						if (!config.showTimer() && inGameBit == 1)
 						{
 							displayRoleSprite();
+						}
+						break;
+					}
+					case "callChangeFlashColor":
+					{
+						if (inGameBit == 1 && wave != null && wave.getRole() != null)
+						{
+							setCallFlashColor(wave.getRole());
 						}
 						break;
 					}
@@ -437,13 +445,8 @@ public class BaMinigamePlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onChatMessage(ChatMessage chatMessage)
+	public void onChatMessage(ChatMessage chatMessage)
 	{
-		if (!chatMessage.getType().equals(ChatMessageType.GAMEMESSAGE))
-		{
-			return;
-		}
-
 		final String message = chatMessage.getMessage();
 		if (message.startsWith("---- Wave:"))
 		{
@@ -544,7 +547,7 @@ public class BaMinigamePlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick event)
+	public void onGameTick(GameTick event)
 	{
 		if (inGameBit != 1)
 		{
@@ -593,7 +596,7 @@ public class BaMinigamePlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onItemSpawned(ItemSpawned itemSpawned)
+	public void onItemSpawned(ItemSpawned itemSpawned)
 	{
 		final Role role = getRole();
 		if (role == null)
@@ -608,7 +611,7 @@ public class BaMinigamePlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onItemDespawned(ItemDespawned itemDespawned)
+	public void onItemDespawned(ItemDespawned itemDespawned)
 	{
 		final Role role = getRole();
 		if (role == null)
@@ -672,7 +675,7 @@ public class BaMinigamePlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onMenuEntryAdded(MenuEntryAdded event)
+	public void onMenuEntryAdded(MenuEntryAdded event)
 	{
 		final Role role = getRole();
 		if (role == null)
