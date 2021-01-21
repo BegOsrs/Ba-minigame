@@ -56,6 +56,14 @@ public class BaWidgetID
 			static final int ROLE = 13;
 		}
 
+		static class Healer
+		{
+			static final int TEAMMATE1 = 19;
+			static final int TEAMMATE2 = 23;
+			static final int TEAMMATE3 = 27;
+			static final int TEAMMATE4 = 31;
+		}
+
 		static class HornOfGlory
 		{
 			static final int ATTACKER = 5;

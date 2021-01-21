@@ -447,6 +447,11 @@ public class BaMinigamePlugin extends Plugin
 	@Subscribe
 	public void onChatMessage(ChatMessage chatMessage)
 	{
+		if (!chatMessage.getType().equals(ChatMessageType.GAMEMESSAGE))
+		{
+			return;
+		}
+
 		final String message = chatMessage.getMessage();
 		if (message.startsWith("---- Wave:"))
 		{

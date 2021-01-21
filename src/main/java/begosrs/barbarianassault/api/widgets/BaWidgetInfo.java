@@ -26,6 +26,7 @@
 package begosrs.barbarianassault.api.widgets;
 
 import net.runelite.api.widgets.Widget;
+import net.runelite.api.widgets.WidgetID;
 
 /**
  * Represents a group-child {@link Widget} relationship.
@@ -61,6 +62,11 @@ public enum BaWidgetInfo
 	BA_HEALER_LISTEN_TEXT(BaWidgetID.BA_HEALER_GROUP_ID, BaWidgetID.BarbarianAssault.LISTEN),
 	BA_HEALER_ROLE_TEXT(BaWidgetID.BA_HEALER_GROUP_ID, BaWidgetID.BarbarianAssault.ROLE),
 	BA_HEALER_ROLE_SPRITE(BaWidgetID.BA_HEALER_GROUP_ID, BaWidgetID.BarbarianAssault.ROLE_SPRITE),
+
+	BA_HEAL_TEAMMATE1(BaWidgetID.BA_HEALER_GROUP_ID, BaWidgetID.BarbarianAssault.Healer.TEAMMATE1),
+	BA_HEAL_TEAMMATE2(BaWidgetID.BA_HEALER_GROUP_ID, BaWidgetID.BarbarianAssault.Healer.TEAMMATE2),
+	BA_HEAL_TEAMMATE3(BaWidgetID.BA_HEALER_GROUP_ID, BaWidgetID.BarbarianAssault.Healer.TEAMMATE3),
+	BA_HEAL_TEAMMATE4(BaWidgetID.BA_HEALER_GROUP_ID, BaWidgetID.BarbarianAssault.Healer.TEAMMATE4),
 
 	BA_HORN_OF_GLORY_ATTACKER_LISTEN_TEXT(BaWidgetID.BA_HORN_OF_GLORY, BaWidgetID.BarbarianAssault.HornOfGlory.ATTACKER),
 	BA_HORN_OF_GLORY_COLLECTOR_LISTEN_TEXT(BaWidgetID.BA_HORN_OF_GLORY, BaWidgetID.BarbarianAssault.HornOfGlory.COLLECTOR),
