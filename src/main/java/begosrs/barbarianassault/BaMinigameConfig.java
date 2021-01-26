@@ -228,7 +228,7 @@ public interface BaMinigameConfig extends Config
 	@ConfigItem(
 		keyName = "showRunnerTickTimerAttacker",
 		name = "Show runner tick timer",
-		description = "Shows the current cycle tick of runners",
+		description = "Shows the current cycle tick of runners when performing the attacker role",
 		position = 4,
 		section = attackerSection
 	)
@@ -321,7 +321,7 @@ public interface BaMinigameConfig extends Config
 	@ConfigItem(
 		keyName = "showRunnerTickTimerDefender",
 		name = "Show runner tick timer",
-		description = "Shows the current cycle tick of runners",
+		description = "Shows the current cycle tick of runners when performing the defender role",
 		position = 6,
 		section = defenderSection
 	)
@@ -406,6 +406,18 @@ public interface BaMinigameConfig extends Config
 		section = collectorSection
 	)
 	default boolean swapDestroyEggs()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+			keyName = "showRunnerTickTimerCollector",
+			name = "Show runner tick timer",
+			description = "Shows the current cycle tick of runners when performing the collector role",
+			position = 6,
+			section = collectorSection
+	)
+	default boolean showRunnerTickTimerCollector()
 	{
 		return false;
 	}
@@ -502,6 +514,18 @@ public interface BaMinigameConfig extends Config
 	default int teammateHealthBarTransparency()
 	{
 		return 200;
+	}
+
+	@ConfigItem(
+			keyName = "showRunnerTickTimerHealer",
+			name = "Show runner tick timer",
+			description = "Shows the current cycle tick of runners when performing the healer role",
+			position = 6,
+			section = healerSection
+	)
+	default boolean showRunnerTickTimerHealer()
+	{
+		return false;
 	}
 
 	@ConfigSection(

@@ -322,15 +322,27 @@ public class BaMinigamePlugin extends Plugin
 						}
 						break;
 					}
+					case "showRunnerTickTimerAttacker":
+					{
+						final boolean display = config.showRunnerTickTimerAttacker() && inGameBit == 1 && getRole() == Role.ATTACKER;
+						enableRunnerTickTimer(display);
+						break;
+					}
 					case "showRunnerTickTimerDefender":
 					{
 						final boolean display = config.showRunnerTickTimerDefender() && inGameBit == 1 && getRole() == Role.DEFENDER;
 						enableRunnerTickTimer(display);
 						break;
 					}
-					case "showRunnerTickTimerAttacker":
+					case "showRunnerTickTimerCollector":
 					{
-						final boolean display = config.showRunnerTickTimerAttacker() && inGameBit == 1 && getRole() == Role.ATTACKER;
+						final boolean display = config.showRunnerTickTimerCollector() && inGameBit == 1 && getRole() == Role.COLLECTOR;
+						enableRunnerTickTimer(display);
+						break;
+					}
+					case "showRunnerTickTimerHealer":
+					{
+						final boolean display = config.showRunnerTickTimerHealer() && inGameBit == 1 && getRole() == Role.HEALER;
 						enableRunnerTickTimer(display);
 						break;
 					}
@@ -431,14 +443,18 @@ public class BaMinigamePlugin extends Plugin
 				enableRunnerTickTimer(display);
 				break;
 			}
-			case BaWidgetID.BA_HEALER_GROUP_ID:
-			{
-				startWave(Role.HEALER);
-				break;
-			}
 			case BaWidgetID.BA_COLLECTOR_GROUP_ID:
 			{
 				startWave(Role.COLLECTOR);
+				final boolean display = config.showRunnerTickTimerCollector();
+				enableRunnerTickTimer(display);
+				break;
+			}
+			case BaWidgetID.BA_HEALER_GROUP_ID:
+			{
+				startWave(Role.HEALER);
+				final boolean display = config.showRunnerTickTimerHealer();
+				enableRunnerTickTimer(display);
 				break;
 			}
 		}
