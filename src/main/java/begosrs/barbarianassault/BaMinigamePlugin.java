@@ -463,7 +463,9 @@ public class BaMinigamePlugin extends Plugin
 	@Subscribe
 	public void onChatMessage(ChatMessage chatMessage)
 	{
-		if (!chatMessage.getType().equals(ChatMessageType.GAMEMESSAGE))
+		final ChatMessageType type = chatMessage.getType();
+		// for some reason, the 'All of the Penance ... have been killed' are WELCOME messages for Healer/Collector/Defender roles
+		if (type != ChatMessageType.GAMEMESSAGE && type != ChatMessageType.WELCOME)
 		{
 			return;
 		}
