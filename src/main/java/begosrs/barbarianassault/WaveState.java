@@ -1,2 +1,7 @@
-package begosrs.barbarianassault;public class WaveState {
+package begosrs.barbarianassault;
+
+public enum WaveState {
+	IN_PROGRESS,
+	FINISHED,
+	CANCELLED,
 }

@@ -59,6 +59,8 @@ class Round
 	private final int[] summaryAmounts;
 	private final int[] summaryPoints;
 
+	private RoundState state;
+
 	Round(int startingWave, Timer timer)
 	{
 		this.startingWave = startingWave;
@@ -67,6 +69,7 @@ class Round
 		this.rolesPoints = new int[4];
 		this.summaryPoints = new int[5];
 		this.summaryAmounts = new int[5];
+		this.state = RoundState.IN_PROGRESS;
 	}
 
 	void addWave(Wave wave)
@@ -95,6 +98,7 @@ class Round
 		{
 			rolesPoints[i] += 80;
 		}
+		setRoundFinished();
 	}
 
 	int getNumberOfWaves()
@@ -163,5 +167,14 @@ class Round
 		}
 		return message;
 	}
+
+	public void setRoundFinished() {
+		this.state = RoundState.FINISHED;
+	}
+
+	public void setRoundCancelled() {
+		this.state = RoundState.CANCELLED;
+	}
+
 
 }

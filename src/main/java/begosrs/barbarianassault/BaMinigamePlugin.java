@@ -46,6 +46,7 @@ import begosrs.barbarianassault.ticktimer.RunnerTickTimerOverlay;
 import begosrs.barbarianassault.timer.DurationMode;
 import begosrs.barbarianassault.timer.Timer;
 import begosrs.barbarianassault.timer.TimerOverlay;
+import begosrs.barbarianassault.ui.BaMinigamePanel;
 import com.google.inject.Provides;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -58,6 +59,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
@@ -102,6 +106,8 @@ import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.ui.ClientToolbar;
+import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.infobox.Counter;
 import net.runelite.client.ui.overlay.infobox.InfoBox;
@@ -155,6 +161,10 @@ public class BaMinigamePlugin extends Plugin
 	private InfoBoxManager infoBoxManager;
 	@Inject
 	private ConfigManager configManager;
+	@Inject
+	private ClientToolbar clientToolbar;
+	@Inject
+	private ScheduledExecutorService executorService;
 
 	@Inject
 	private MenuEntrySwapper menuEntrySwapper;
@@ -200,6 +210,12 @@ public class BaMinigamePlugin extends Plugin
 	@Getter
 	private int lastListenItemId;
 	private Integer attackStyleTextColor;
+	@Getter(AccessLevel.PACKAGE)
+	private NavigationButton button;
+	@Getter(AccessLevel.PACKAGE)
+
+	private BaMinigamePanel panel;
+	private ScheduledFuture panelUpdateFuture;
 
 	@Provides
 	BaMinigameConfig provideConfig(ConfigManager configManager)
@@ -210,10 +226,21 @@ public class BaMinigamePlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
-		npcImages.put("fighters", ImageUtil.getResourceStreamFromClass(getClass(), "/fighter.png"));
-		npcImages.put("rangers", ImageUtil.getResourceStreamFromClass(getClass(), "/ranger.png"));
-		npcImages.put("healers", ImageUtil.getResourceStreamFromClass(getClass(), "/healer.png"));
-		npcImages.put("runners", ImageUtil.getResourceStreamFromClass(getClass(), "/runner.png"));
+		panel = injector.getInstance(BaMinigamePanel.class);
+		button = NavigationButton.builder()
+			.tooltip("Barbarian Assault")
+			.icon(ImageUtil.getResourceStreamFromClass(getClass(), "/penance_queen.png"))
+			.priority(10)
+			.panel(panel)
+			.build();
+		log.info(button.toString());
+		clientToolbar.addNavigation(button);
+		panelUpdateFuture = executorService.scheduleAtFixedRate(panel::update, 1000, 1000, TimeUnit.MILLISECONDS);
+
+		npcImages.put("fighters", ImageUtil.getResourceStreamFromClass(getClass(), "/penance_fighter.png"));
+		npcImages.put("rangers", ImageUtil.getResourceStreamFromClass(getClass(), "/penance_ranger.png"));
+		npcImages.put("healers", ImageUtil.getResourceStreamFromClass(getClass(), "/penance_healer.png"));
+		npcImages.put("runners", ImageUtil.getResourceStreamFromClass(getClass(), "/penance_runner.png"));
 
 		overlayManager.add(timerOverlay);
 		overlayManager.add(inventoryOverlay);
@@ -236,6 +263,13 @@ public class BaMinigamePlugin extends Plugin
 	@Override
 	protected void shutDown() throws Exception
 	{
+		clientToolbar.removeNavigation(button);
+		if (panelUpdateFuture != null)
+		{
+			panelUpdateFuture.cancel(true);
+			panelUpdateFuture = null;
+		}
+
 		overlayManager.remove(timerOverlay);
 		overlayManager.remove(inventoryOverlay);
 		overlayManager.remove(groundItemsOverlay);
@@ -823,9 +857,10 @@ public class BaMinigamePlugin extends Plugin
 			wave = new Wave(client, currentWave);
 		}
 
+		wave.setAmounts();
+
 		if (!roundEnded)
 		{
-			wave.setAmounts();
 			wave.setPoints();
 
 			final BaWidgetInfo pointsBaWidgetInfo = BaWidgetInfo.BA_REWARD_TEXT;
@@ -849,6 +884,8 @@ public class BaMinigamePlugin extends Plugin
 				}
 			}
 		}
+
+		wave.setWaveFinished();
 
 		if (round != null)
 		{

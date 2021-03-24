@@ -1,6 +1,7 @@
 package begosrs.barbarianassault;
 
-public enum WaveState {
+public enum RoundState {
 	IN_PROGRESS,
-	FINISHED
+	FINISHED,
+	CANCELLED,
 }

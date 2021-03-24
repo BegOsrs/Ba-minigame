@@ -109,13 +109,15 @@ public class Wave
 	private final int[] amounts;
 	@Getter
 	private final int[] points;
+	@Getter
+	private WaveState state;
 
-	Wave(Client client, int number)
+	public Wave(Client client, int number)
 	{
 		this(client, number, null, null);
 	}
 
-	Wave(Client client, int number, Role role, Timer timer)
+	public Wave(Client client, int number, Role role, Timer timer)
 	{
 		this.client = client;
 		this.number = number;
@@ -124,6 +126,7 @@ public class Wave
 		this.rolesPoints = new int[4];
 		this.amounts = new int[5];
 		this.points = new int[5];
+		this.state = WaveState.IN_PROGRESS;
 	}
 
 	public int getTimeUntilCallChange()
@@ -156,36 +159,43 @@ public class Wave
 
 	void setPoints()
 	{
-		points[0] = getBaWidgetValue(ATTACKER_POINTS_WIDGETS[FAILED_ATTACKS_INDEX]);
-		points[1] = getBaWidgetValue(DEFENDER_POINTS_WIDGETS[RUNNERS_PASSED_INDEX]);
-		points[2] = getBaWidgetValue(COLLECTOR_POINTS_WIDGETS[EGGS_COLLECTED_INDEX]);
-		points[3] = getBaWidgetValue(HEALER_POINTS_WIDGETS[HITPOINTS_REPLENISHED_INDEX]);
-		points[4] = getBaWidgetValue(HEALER_POINTS_WIDGETS[WRONG_POISON_PACKS_INDEX]);
+		if (number < 10) {
+			points[0] = getBaWidgetValue(ATTACKER_POINTS_WIDGETS[FAILED_ATTACKS_INDEX]);
+			points[1] = getBaWidgetValue(DEFENDER_POINTS_WIDGETS[RUNNERS_PASSED_INDEX]);
+			points[2] = getBaWidgetValue(COLLECTOR_POINTS_WIDGETS[EGGS_COLLECTED_INDEX]);
+			points[3] = getBaWidgetValue(HEALER_POINTS_WIDGETS[HITPOINTS_REPLENISHED_INDEX]);
+			points[4] = getBaWidgetValue(HEALER_POINTS_WIDGETS[WRONG_POISON_PACKS_INDEX]);
 
-		final int basePoints = getBaWidgetValue(BaWidgetInfo.BA_BASE_POINTS);
-		for (Role role : Role.values())
-		{
-			rolesPoints[role.ordinal()] += basePoints;
+			final int basePoints = getBaWidgetValue(BaWidgetInfo.BA_BASE_POINTS);
+			for (Role role : Role.values())
+			{
+				rolesPoints[role.ordinal()] += basePoints;
+			}
+			for (BaWidgetInfo baWidgetInfo : ATTACKER_POINTS_WIDGETS)
+			{
+				final int points = getBaWidgetValue(baWidgetInfo);
+				rolesPoints[Role.ATTACKER.ordinal()] += points;
+			}
+			for (BaWidgetInfo baWidgetInfo : DEFENDER_POINTS_WIDGETS)
+			{
+				final int points = getBaWidgetValue(baWidgetInfo);
+				rolesPoints[Role.DEFENDER.ordinal()] += points;
+			}
+			for (BaWidgetInfo baWidgetInfo : COLLECTOR_POINTS_WIDGETS)
+			{
+				final int points = getBaWidgetValue(baWidgetInfo);
+				rolesPoints[Role.COLLECTOR.ordinal()] += points;
+			}
+			for (BaWidgetInfo baWidgetInfo : HEALER_POINTS_WIDGETS)
+			{
+				final int points = getBaWidgetValue(baWidgetInfo);
+				rolesPoints[Role.HEALER.ordinal()] += points;
+			}
 		}
-		for (BaWidgetInfo baWidgetInfo : ATTACKER_POINTS_WIDGETS)
-		{
-			final int points = getBaWidgetValue(baWidgetInfo);
-			rolesPoints[Role.ATTACKER.ordinal()] += points;
-		}
-		for (BaWidgetInfo baWidgetInfo : DEFENDER_POINTS_WIDGETS)
-		{
-			final int points = getBaWidgetValue(baWidgetInfo);
-			rolesPoints[Role.DEFENDER.ordinal()] += points;
-		}
-		for (BaWidgetInfo baWidgetInfo : COLLECTOR_POINTS_WIDGETS)
-		{
-			final int points = getBaWidgetValue(baWidgetInfo);
-			rolesPoints[Role.COLLECTOR.ordinal()] += points;
-		}
-		for (BaWidgetInfo baWidgetInfo : HEALER_POINTS_WIDGETS)
-		{
-			final int points = getBaWidgetValue(baWidgetInfo);
-			rolesPoints[Role.HEALER.ordinal()] += points;
+		else {
+			for (Role role : Role.values()) {
+				rolesPoints[role.ordinal()] += 80;
+			}
 		}
 	}
 
@@ -251,4 +261,13 @@ public class Wave
 		final Widget widget = client.getWidget(baWidgetInfo.getGroupId(), baWidgetInfo.getChildId());
 		return widget == null ? 0 : Integer.parseInt(widget.getText());
 	}
+
+	public void setWaveFinished() {
+		this.state = WaveState.FINISHED;
+	}
+
+	public void setWaveCancelled() {
+		this.state = WaveState.CANCELLED;
+	}
+
 }
