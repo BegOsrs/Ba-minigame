@@ -26,6 +26,7 @@
 package begosrs.barbarianassault.api.widgets;
 
 import net.runelite.api.widgets.Widget;
+import net.runelite.api.widgets.WidgetID;
 
 /**
  * Represents a group-child {@link Widget} relationship.
@@ -34,31 +35,38 @@ import net.runelite.api.widgets.Widget;
  */
 public enum BaWidgetInfo
 {
+	BA_ATTACKER_CALL_FLASH(BaWidgetID.BA_ATTACKER_GROUP_ID, BaWidgetID.BarbarianAssault.CALL_FLASH),
 	BA_ATTACKER_WAVE_TEXT(BaWidgetID.BA_ATTACKER_GROUP_ID, BaWidgetID.BarbarianAssault.CURRENT_WAVE),
 	BA_ATTACKER_CALL_TEXT(BaWidgetID.BA_ATTACKER_GROUP_ID, BaWidgetID.BarbarianAssault.Attacker.TO_CALL),
-	BA_ATTACKER_LISTEN_TEXT(BaWidgetID.BA_ATTACKER_GROUP_ID, BaWidgetID.BarbarianAssault.CORRECT_STYLE),
 	BA_ATTACKER_LISTEN_TOP_TEXT(BaWidgetID.BA_ATTACKER_GROUP_ID, BaWidgetID.BarbarianAssault.Attacker.LISTEN_TOP),
-	BA_ATTACKER_LISTEN_BOTTOM_TEXT(BaWidgetID.BA_ATTACKER_GROUP_ID, BaWidgetID.BarbarianAssault.Attacker.LISTEN_BOTTOM),
 	BA_ATTACKER_ROLE_TEXT(BaWidgetID.BA_ATTACKER_GROUP_ID, BaWidgetID.BarbarianAssault.Attacker.ROLE),
 	BA_ATTACKER_ROLE_SPRITE(BaWidgetID.BA_ATTACKER_GROUP_ID, BaWidgetID.BarbarianAssault.Attacker.ROLE_SPRITE),
 
+	BA_COLLECTOR_CALL_FLASH(BaWidgetID.BA_COLLECTOR_GROUP_ID, BaWidgetID.BarbarianAssault.CALL_FLASH),
 	BA_COLLECTOR_WAVE_TEXT(BaWidgetID.BA_COLLECTOR_GROUP_ID, BaWidgetID.BarbarianAssault.CURRENT_WAVE),
 	BA_COLLECTOR_CALL_TEXT(BaWidgetID.BA_COLLECTOR_GROUP_ID, BaWidgetID.BarbarianAssault.TO_CALL),
 	BA_COLLECTOR_LISTEN_TEXT(BaWidgetID.BA_COLLECTOR_GROUP_ID, BaWidgetID.BarbarianAssault.LISTEN),
 	BA_COLLECTOR_ROLE_TEXT(BaWidgetID.BA_COLLECTOR_GROUP_ID, BaWidgetID.BarbarianAssault.ROLE),
 	BA_COLLECTOR_ROLE_SPRITE(BaWidgetID.BA_COLLECTOR_GROUP_ID, BaWidgetID.BarbarianAssault.ROLE_SPRITE),
 
+	BA_DEFENDER_CALL_FLASH(BaWidgetID.BA_DEFENDER_GROUP_ID, BaWidgetID.BarbarianAssault.CALL_FLASH),
 	BA_DEFENDER_WAVE_TEXT(BaWidgetID.BA_DEFENDER_GROUP_ID, BaWidgetID.BarbarianAssault.CURRENT_WAVE),
 	BA_DEFENDER_CALL_TEXT(BaWidgetID.BA_DEFENDER_GROUP_ID, BaWidgetID.BarbarianAssault.TO_CALL),
 	BA_DEFENDER_LISTEN_TEXT(BaWidgetID.BA_DEFENDER_GROUP_ID, BaWidgetID.BarbarianAssault.LISTEN),
 	BA_DEFENDER_ROLE_TEXT(BaWidgetID.BA_DEFENDER_GROUP_ID, BaWidgetID.BarbarianAssault.ROLE),
 	BA_DEFENDER_ROLE_SPRITE(BaWidgetID.BA_DEFENDER_GROUP_ID, BaWidgetID.BarbarianAssault.ROLE_SPRITE),
 
+	BA_HEALER_CALL_FLASH(BaWidgetID.BA_HEALER_GROUP_ID, BaWidgetID.BarbarianAssault.CALL_FLASH),
 	BA_HEALER_WAVE_TEXT(BaWidgetID.BA_HEALER_GROUP_ID, BaWidgetID.BarbarianAssault.CURRENT_WAVE),
 	BA_HEALER_CALL_TEXT(BaWidgetID.BA_HEALER_GROUP_ID, BaWidgetID.BarbarianAssault.TO_CALL),
 	BA_HEALER_LISTEN_TEXT(BaWidgetID.BA_HEALER_GROUP_ID, BaWidgetID.BarbarianAssault.LISTEN),
 	BA_HEALER_ROLE_TEXT(BaWidgetID.BA_HEALER_GROUP_ID, BaWidgetID.BarbarianAssault.ROLE),
 	BA_HEALER_ROLE_SPRITE(BaWidgetID.BA_HEALER_GROUP_ID, BaWidgetID.BarbarianAssault.ROLE_SPRITE),
+
+	BA_HEAL_TEAMMATE1(BaWidgetID.BA_HEALER_GROUP_ID, BaWidgetID.BarbarianAssault.Healer.TEAMMATE1),
+	BA_HEAL_TEAMMATE2(BaWidgetID.BA_HEALER_GROUP_ID, BaWidgetID.BarbarianAssault.Healer.TEAMMATE2),
+	BA_HEAL_TEAMMATE3(BaWidgetID.BA_HEALER_GROUP_ID, BaWidgetID.BarbarianAssault.Healer.TEAMMATE3),
+	BA_HEAL_TEAMMATE4(BaWidgetID.BA_HEALER_GROUP_ID, BaWidgetID.BarbarianAssault.Healer.TEAMMATE4),
 
 	BA_HORN_OF_GLORY_ATTACKER_LISTEN_TEXT(BaWidgetID.BA_HORN_OF_GLORY, BaWidgetID.BarbarianAssault.HornOfGlory.ATTACKER),
 	BA_HORN_OF_GLORY_COLLECTOR_LISTEN_TEXT(BaWidgetID.BA_HORN_OF_GLORY, BaWidgetID.BarbarianAssault.HornOfGlory.COLLECTOR),

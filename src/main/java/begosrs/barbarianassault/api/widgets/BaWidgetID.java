@@ -49,11 +49,19 @@ public class BaWidgetID
 	{
 		static class Attacker
 		{
-			static final int LISTEN_TOP = 7;
-			static final int LISTEN_BOTTOM = 8;
-			static final int TO_CALL = 10;
-			static final int ROLE_SPRITE = 11;
-			static final int ROLE = 12;
+			static final int LISTEN_TOP = 8;
+			static final int LISTEN_BOTTOM = 9;
+			static final int TO_CALL = 11;
+			static final int ROLE_SPRITE = 12;
+			static final int ROLE = 13;
+		}
+
+		static class Healer
+		{
+			static final int TEAMMATE1 = 19;
+			static final int TEAMMATE2 = 23;
+			static final int TEAMMATE3 = 27;
+			static final int TEAMMATE4 = 31;
 		}
 
 		static class HornOfGlory
@@ -83,12 +91,12 @@ public class BaWidgetID
 			static final int BASE_POINTS = 33;
 		}
 
-		static final int CORRECT_STYLE = 3;
-		static final int CURRENT_WAVE = 5;
-		static final int LISTEN = 7;
-		static final int TO_CALL = 9;
-		static final int ROLE_SPRITE = 10;
-		static final int ROLE = 11;
+		static final int CALL_FLASH = 4;
+		static final int CURRENT_WAVE = 6;
+		static final int LISTEN = 8;
+		static final int TO_CALL = 10;
+		static final int ROLE_SPRITE = 11;
+		static final int ROLE = 12;
 		static final int REWARD_TEXT = 57;
 	}
 

@@ -32,12 +32,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
+
+import begosrs.barbarianassault.api.widgets.BaWidgetInfo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.runelite.api.Client;
 import net.runelite.api.MenuAction;
 import net.runelite.api.widgets.Widget;
-import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayManager;
@@ -50,12 +51,12 @@ public class TeamHealthBarOverlay extends Overlay
 	@AllArgsConstructor
 	private enum HealerTeam
 	{
-		TEAMMATE1(WidgetInfo.BA_HEAL_TEAMMATE1, 28, 2, 115),
-		TEAMMATE2(WidgetInfo.BA_HEAL_TEAMMATE2, 26, 2, 115),
-		TEAMMATE3(WidgetInfo.BA_HEAL_TEAMMATE3, 26, 2, 115),
-		TEAMMATE4(WidgetInfo.BA_HEAL_TEAMMATE4, 25, 2, 115);
+		TEAMMATE1(BaWidgetInfo.BA_HEAL_TEAMMATE1, 28, 2, 115),
+		TEAMMATE2(BaWidgetInfo.BA_HEAL_TEAMMATE2, 26, 2, 115),
+		TEAMMATE3(BaWidgetInfo.BA_HEAL_TEAMMATE3, 26, 2, 115),
+		TEAMMATE4(BaWidgetInfo.BA_HEAL_TEAMMATE4, 25, 2, 115);
 
-		private final WidgetInfo teammate;
+		private final BaWidgetInfo teammate;
 		private final int offsetX;
 		private final int offsetY;
 		private final int width;
@@ -86,7 +87,7 @@ public class TeamHealthBarOverlay extends Overlay
 		{
 			for (HealerTeam teammate : HealerTeam.values())
 			{
-				Widget widget = client.getWidget(teammate.getTeammate());
+				Widget widget = client.getWidget(teammate.getTeammate().getGroupId(), teammate.getTeammate().getChildId());
 				if (widget == null)
 				{
 					continue;

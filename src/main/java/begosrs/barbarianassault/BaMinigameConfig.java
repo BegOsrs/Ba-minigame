@@ -95,12 +95,25 @@ public interface BaMinigameConfig extends Config
 		return true;
 	}
 
+	@Alpha
+	@ConfigItem(
+		keyName = "callChangeFlashColor",
+		name = "Call change flash color",
+		description = "Select the color to flash the call change",
+		section = inGameSection,
+		position = 1
+	)
+	default Color callChangeFlashColor()
+	{
+		return new Color(255, 255, 255, 126);
+	}
+
 	@ConfigItem(
 		keyName = "deathTimesMode",
 		name = "Death times",
 		description = "Shows the time all penance monsters of a certain type are killed in an info box, the chat, or both",
 		section = inGameSection,
-		position = 1
+		position = 2
 	)
 	default DeathTimesMode deathTimesMode()
 	{
@@ -112,7 +125,7 @@ public interface BaMinigameConfig extends Config
 		name = "Eggs loaded on hoppers",
 		description = "Displays the amount of loaded eggs on cannon hoppers",
 		section = inGameSection,
-		position = 2
+		position = 3
 	)
 	default boolean showEggsOnHopper()
 	{
@@ -124,7 +137,7 @@ public interface BaMinigameConfig extends Config
 		name = "Inventory highlight",
 		description = "Define the mode of all inventory highlights",
 		section = inGameSection,
-		position = 3
+		position = 4
 	)
 	default InventoryHighlightMode inventoryHighlightMode()
 	{
@@ -136,7 +149,7 @@ public interface BaMinigameConfig extends Config
 		name = "Ground items highlight",
 		description = "Show ground item highlights",
 		section = inGameSection,
-		position = 4
+		position = 5
 	)
 	default boolean showGroundItemHighlights()
 	{
@@ -148,7 +161,7 @@ public interface BaMinigameConfig extends Config
 		name = "Ground tiles highlight",
 		description = "Configures whether or not to highlight tiles containing ground items",
 		section = inGameSection,
-		position = 5
+		position = 6
 	)
 	default boolean highlightGroundTiles()
 	{
@@ -215,7 +228,7 @@ public interface BaMinigameConfig extends Config
 	@ConfigItem(
 		keyName = "showRunnerTickTimerAttacker",
 		name = "Show runner tick timer",
-		description = "Shows the current cycle tick of runners",
+		description = "Shows the current cycle tick of runners when performing the attacker role",
 		position = 4,
 		section = attackerSection
 	)
@@ -308,7 +321,7 @@ public interface BaMinigameConfig extends Config
 	@ConfigItem(
 		keyName = "showRunnerTickTimerDefender",
 		name = "Show runner tick timer",
-		description = "Shows the current cycle tick of runners",
+		description = "Shows the current cycle tick of runners when performing the defender role",
 		position = 6,
 		section = defenderSection
 	)
@@ -393,6 +406,18 @@ public interface BaMinigameConfig extends Config
 		section = collectorSection
 	)
 	default boolean swapDestroyEggs()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+			keyName = "showRunnerTickTimerCollector",
+			name = "Show runner tick timer",
+			description = "Shows the current cycle tick of runners when performing the collector role",
+			position = 6,
+			section = collectorSection
+	)
+	default boolean showRunnerTickTimerCollector()
 	{
 		return false;
 	}
@@ -489,6 +514,18 @@ public interface BaMinigameConfig extends Config
 	default int teammateHealthBarTransparency()
 	{
 		return 200;
+	}
+
+	@ConfigItem(
+			keyName = "showRunnerTickTimerHealer",
+			name = "Show runner tick timer",
+			description = "Shows the current cycle tick of runners when performing the healer role",
+			position = 6,
+			section = healerSection
+	)
+	default boolean showRunnerTickTimerHealer()
+	{
+		return false;
 	}
 
 	@ConfigSection(

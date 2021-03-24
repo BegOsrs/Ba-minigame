@@ -115,7 +115,7 @@ import org.apache.commons.lang3.StringUtils;
 @PluginDescriptor(
 	name = "Ba Minigame",
 	description = "Includes many features to enhance the barbarian assault minigame gameplay experience",
-	tags = {"overlay", "b.a.", "barbarian assault", "minigame", "attacker", "defender", "collector", "healer"}
+	tags = {"overlay", "b.a.", "barbarian assault", "minigame", "attacker", "defender", "collector", "healer", "plugin hub"}
 )
 public class BaMinigamePlugin extends Plugin
 {
@@ -274,7 +274,7 @@ public class BaMinigamePlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
+	public void onConfigChanged(ConfigChanged event)
 	{
 		final String group = event.getGroup();
 		final String key = event.getKey();
@@ -290,6 +290,14 @@ public class BaMinigamePlugin extends Plugin
 			case BA_MINIGAME_CONFIG_GROUP:
 				switch (key)
 				{
+					case "callChangeFlashColor":
+					{
+						if (inGameBit == 1 && wave != null && wave.getRole() != null)
+						{
+							setCallFlashColor(wave.getRole());
+						}
+						break;
+					}
 					case "showTimer":
 					{
 						if (!config.showTimer() && inGameBit == 1)
@@ -314,15 +322,27 @@ public class BaMinigamePlugin extends Plugin
 						}
 						break;
 					}
+					case "showRunnerTickTimerAttacker":
+					{
+						final boolean display = config.showRunnerTickTimerAttacker() && inGameBit == 1 && getRole() == Role.ATTACKER;
+						enableRunnerTickTimer(display);
+						break;
+					}
 					case "showRunnerTickTimerDefender":
 					{
 						final boolean display = config.showRunnerTickTimerDefender() && inGameBit == 1 && getRole() == Role.DEFENDER;
 						enableRunnerTickTimer(display);
 						break;
 					}
-					case "showRunnerTickTimerAttacker":
+					case "showRunnerTickTimerCollector":
 					{
-						final boolean display = config.showRunnerTickTimerAttacker() && inGameBit == 1 && getRole() == Role.ATTACKER;
+						final boolean display = config.showRunnerTickTimerCollector() && inGameBit == 1 && getRole() == Role.COLLECTOR;
+						enableRunnerTickTimer(display);
+						break;
+					}
+					case "showRunnerTickTimerHealer":
+					{
+						final boolean display = config.showRunnerTickTimerHealer() && inGameBit == 1 && getRole() == Role.HEALER;
 						enableRunnerTickTimer(display);
 						break;
 					}
@@ -423,23 +443,29 @@ public class BaMinigamePlugin extends Plugin
 				enableRunnerTickTimer(display);
 				break;
 			}
-			case BaWidgetID.BA_HEALER_GROUP_ID:
-			{
-				startWave(Role.HEALER);
-				break;
-			}
 			case BaWidgetID.BA_COLLECTOR_GROUP_ID:
 			{
 				startWave(Role.COLLECTOR);
+				final boolean display = config.showRunnerTickTimerCollector();
+				enableRunnerTickTimer(display);
+				break;
+			}
+			case BaWidgetID.BA_HEALER_GROUP_ID:
+			{
+				startWave(Role.HEALER);
+				final boolean display = config.showRunnerTickTimerHealer();
+				enableRunnerTickTimer(display);
 				break;
 			}
 		}
 	}
 
 	@Subscribe
-	private void onChatMessage(ChatMessage chatMessage)
+	public void onChatMessage(ChatMessage chatMessage)
 	{
-		if (!chatMessage.getType().equals(ChatMessageType.GAMEMESSAGE))
+		final ChatMessageType type = chatMessage.getType();
+		// for some reason, the 'All of the Penance ... have been killed' are WELCOME messages for Healer/Collector/Defender roles
+		if (type != ChatMessageType.GAMEMESSAGE && type != ChatMessageType.WELCOME)
 		{
 			return;
 		}
@@ -544,7 +570,7 @@ public class BaMinigamePlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick event)
+	public void onGameTick(GameTick event)
 	{
 		if (inGameBit != 1)
 		{
@@ -593,7 +619,7 @@ public class BaMinigamePlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onItemSpawned(ItemSpawned itemSpawned)
+	public void onItemSpawned(ItemSpawned itemSpawned)
 	{
 		final Role role = getRole();
 		if (role == null)
@@ -608,7 +634,7 @@ public class BaMinigamePlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onItemDespawned(ItemDespawned itemDespawned)
+	public void onItemDespawned(ItemDespawned itemDespawned)
 	{
 		final Role role = getRole();
 		if (role == null)
@@ -672,7 +698,7 @@ public class BaMinigamePlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onMenuEntryAdded(MenuEntryAdded event)
+	public void onMenuEntryAdded(MenuEntryAdded event)
 	{
 		final Role role = getRole();
 		if (role == null)
@@ -887,6 +913,20 @@ public class BaMinigamePlugin extends Plugin
 
 		timer.setWaveStartTime();
 		wave = new Wave(client, currentWave, role, timer);
+
+		setCallFlashColor(role);
+	}
+
+	private void setCallFlashColor(Role role) {
+		final BaWidgetInfo widgetInfo = role.getCallFlash();
+		final Widget callFlashWidget = client.getWidget(widgetInfo.getGroupId(), widgetInfo.getChildId());
+		if (callFlashWidget != null)
+		{
+			final Color flashColor = config.callChangeFlashColor();
+			final int color = Integer.decode(ColorUtil.toHexColor(new Color(flashColor.getRed(), flashColor.getGreen(), flashColor.getBlue())));
+			callFlashWidget.setTextColor(color);
+			callFlashWidget.setOpacity(255 - flashColor.getAlpha());
+		}
 	}
 
 	private void displayRoleSprite()
