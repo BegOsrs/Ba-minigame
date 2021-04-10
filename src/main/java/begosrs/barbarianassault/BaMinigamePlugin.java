@@ -532,11 +532,13 @@ public class BaMinigamePlugin extends Plugin
 	@Subscribe
 	public void onVarbitChanged(VarbitChanged event)
 	{
-		final int inGame = client.getVar(Varbits.IN_GAME_BA);
+		final int currentInGame = client.getVar(Varbits.IN_GAME_BA);
 
-		if (inGameBit != inGame)
+		if (inGameBit != currentInGame)
 		{
-			if (inGameBit == 1)
+			int previousInGameBit = inGameBit;
+			inGameBit = currentInGame;
+			if (previousInGameBit == 1)
 			{
 				// Use an instance check to determine if this is exiting a game or a tutorial
 				// After exiting tutorials there is a small delay before changing IN_GAME_BA back to
@@ -551,8 +553,6 @@ public class BaMinigamePlugin extends Plugin
 				stopWave();
 			}
 		}
-
-		inGameBit = inGame;
 
 		if (inGameBit == 1)
 		{
