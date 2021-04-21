@@ -41,19 +41,19 @@ public enum Role
 	ATTACKER("Attacker", BaMinigamePlugin.RED,
 		BaWidgetInfo.BA_ATTACKER_WAVE_TEXT, BaWidgetInfo.BA_ATTACKER_LISTEN_TOP_TEXT, BaWidgetInfo.BA_HORN_OF_GLORY_COLLECTOR_LISTEN_TEXT,
 		BaWidgetInfo.BA_ATTACKER_CALL_TEXT, BaWidgetInfo.BA_ATTACKER_CALL_FLASH, BaWidgetInfo.BA_HORN_OF_GLORY_COLLECTOR_LISTEN_TEXT, BaWidgetInfo.BA_ATTACKER_ROLE_TEXT,
-		BaWidgetInfo.BA_ATTACKER_ROLE_SPRITE, BaSpriteID.BA_COLLECTOR_ICON),
+		BaWidgetInfo.BA_ATTACKER_ROLE_SPRITE, BaSpriteID.BA_COLLECTOR_ICON, "Collector"),
 	DEFENDER("Defender", BaMinigamePlugin.LIGHT_BLUE,
 		BaWidgetInfo.BA_DEFENDER_WAVE_TEXT, BaWidgetInfo.BA_DEFENDER_LISTEN_TEXT, BaWidgetInfo.BA_HORN_OF_GLORY_HEALER_LISTEN_TEXT,
 		BaWidgetInfo.BA_DEFENDER_CALL_TEXT, BaWidgetInfo.BA_DEFENDER_CALL_FLASH, BaWidgetInfo.BA_HORN_OF_GLORY_HEALER_LISTEN_TEXT, BaWidgetInfo.BA_DEFENDER_ROLE_TEXT,
-		BaWidgetInfo.BA_DEFENDER_ROLE_SPRITE, BaSpriteID.BA_HEALER_ICON),
+		BaWidgetInfo.BA_DEFENDER_ROLE_SPRITE, BaSpriteID.BA_HEALER_ICON, "Healer"),
 	COLLECTOR("Collector", Color.YELLOW,
 		BaWidgetInfo.BA_COLLECTOR_WAVE_TEXT, BaWidgetInfo.BA_COLLECTOR_LISTEN_TEXT, BaWidgetInfo.BA_HORN_OF_GLORY_ATTACKER_LISTEN_TEXT,
 		BaWidgetInfo.BA_COLLECTOR_CALL_TEXT, BaWidgetInfo.BA_COLLECTOR_CALL_FLASH, BaWidgetInfo.BA_HORN_OF_GLORY_ATTACKER_LISTEN_TEXT, BaWidgetInfo.BA_COLLECTOR_ROLE_TEXT,
-		BaWidgetInfo.BA_COLLECTOR_ROLE_SPRITE, BaSpriteID.BA_ATTACKER_ICON),
+		BaWidgetInfo.BA_COLLECTOR_ROLE_SPRITE, BaSpriteID.BA_ATTACKER_ICON, "Attacker"),
 	HEALER("Healer", BaMinigamePlugin.DARK_GREEN,
 		BaWidgetInfo.BA_HEALER_WAVE_TEXT, BaWidgetInfo.BA_HEALER_LISTEN_TEXT, BaWidgetInfo.BA_HORN_OF_GLORY_DEFENDER_LISTEN_TEXT,
 		BaWidgetInfo.BA_HEALER_CALL_TEXT, BaWidgetInfo.BA_HEALER_CALL_FLASH, BaWidgetInfo.BA_HORN_OF_GLORY_DEFENDER_LISTEN_TEXT, BaWidgetInfo.BA_HEALER_ROLE_TEXT,
-		BaWidgetInfo.BA_HEALER_ROLE_SPRITE, BaSpriteID.BA_DEFENDER_ICON);
+		BaWidgetInfo.BA_HEALER_ROLE_SPRITE, BaSpriteID.BA_DEFENDER_ICON, "Defender");
 
 	@Getter
 	private final String name;
@@ -76,7 +76,9 @@ public enum Role
 	@Getter
 	private final BaWidgetInfo roleSprite;
 	@Getter
-	private final int spriteId;
+	private final int partnerSpriteId;
+	@Getter
+	private final String partnerRoleName;
 
 	@Override
 	public String toString()
