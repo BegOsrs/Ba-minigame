@@ -122,8 +122,8 @@ public class TimerOverlay extends Overlay
 		}
 		else
 		{
-			stringBuilder.append(role.getName());
-			roleSprite.setSpriteId(role.getSpriteId());
+			stringBuilder.append(role.getPartnerRoleName());
+			roleSprite.setSpriteId(role.getPartnerSpriteId());
 			roleSprite.setHidden(false);
 		}
 

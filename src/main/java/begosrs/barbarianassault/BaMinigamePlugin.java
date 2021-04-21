@@ -942,14 +942,14 @@ public class BaMinigamePlugin extends Plugin
 		if (roleSprite != null)
 		{
 			roleSprite.setHidden(false);
-			roleSprite.setSpriteId(role.getSpriteId());
+			roleSprite.setSpriteId(role.getPartnerSpriteId());
 		}
 
 		final BaWidgetInfo roleTextInfo = role.getRoleText();
 		final Widget roleText = client.getWidget(roleTextInfo.getGroupId(), roleTextInfo.getChildId());
 		if (roleText != null)
 		{
-			roleText.setText(role.getName());
+			roleText.setText(role.getPartnerRoleName());
 		}
 	}
 
