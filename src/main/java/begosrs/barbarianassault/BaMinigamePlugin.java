@@ -801,6 +801,12 @@ public class BaMinigamePlugin extends Plugin
 		final AttackStyle[] styles = WeaponType.getWeaponType(var).getAttackStyles();
 		for (int i = 0; i < styles.length; i++)
 		{
+			AttackStyle style = styles[i];
+			if (style == AttackStyle.CASTING || style == AttackStyle.DEFENSIVE_CASTING) {
+				// magic attack styles will never be highlighted
+				continue;
+			}
+			
 			final AttackStyleWidget attackStyleWidget = AttackStyleWidget.getAttackStyles()[i];
 			final BaWidgetInfo attackStyleTextBaWidgetInfo = attackStyleWidget.getTextWidget();
 
@@ -1208,8 +1214,7 @@ public class BaMinigamePlugin extends Plugin
 		removeItemSpawn(item, Key, groundLogsHammer);
 	}
 
-	private GroundItem removeItemSpawn(TileItem item, GroundItem.Key Key,
-									   Map<GroundItem.Key, GroundItem> spawnItems)
+	private GroundItem removeItemSpawn(TileItem item, GroundItem.Key Key, Map<GroundItem.Key, GroundItem> spawnItems)
 	{
 		GroundItem groundItem = spawnItems.get(Key);
 		if (groundItem == null)
