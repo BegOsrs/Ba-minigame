@@ -97,7 +97,7 @@ public class BaWidgetID
 		static final int TO_CALL = 9;
 		static final int ROLE_SPRITE = 10;
 		static final int ROLE = 11;
-		static final int REWARD_TEXT = 56;
+		static final int REWARD_TEXT = 57;
 	}
 
 	static class Combat

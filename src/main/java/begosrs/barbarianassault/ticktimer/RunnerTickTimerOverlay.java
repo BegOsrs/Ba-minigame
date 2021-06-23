@@ -56,7 +56,6 @@ public class RunnerTickTimerOverlay extends OverlayPanel
 		super(plugin);
 		setPosition(OverlayPosition.TOP_CENTER);
 		setLayer(OverlayLayer.ABOVE_SCENE);
-		getMenuEntries().add(new OverlayMenuEntry(RUNELITE_OVERLAY_CONFIG, OPTION_CONFIGURE, "Ba minigame overlay"));
 		this.plugin = plugin;
 		this.config = config;
 	}

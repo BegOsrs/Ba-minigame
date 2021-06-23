@@ -63,7 +63,6 @@ public class TimerOverlay extends Overlay
 		super(plugin);
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
-		getMenuEntries().add(new OverlayMenuEntry(MenuAction.RUNELITE_OVERLAY_CONFIG, OverlayManager.OPTION_CONFIGURE, "Ba minigame overlay"));
 		this.client = client;
 		this.plugin = plugin;
 		this.config = config;
