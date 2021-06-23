@@ -431,30 +431,22 @@ public class BaMinigamePlugin extends Plugin
 			}
 			case BaWidgetID.BA_ATTACKER_GROUP_ID:
 			{
-				startWave(Role.ATTACKER);
-				final boolean display = config.showRunnerTickTimerAttacker();
-				enableRunnerTickTimer(display);
+				startWave(Role.ATTACKER, config.showRunnerTickTimerAttacker());
 				break;
 			}
 			case BaWidgetID.BA_DEFENDER_GROUP_ID:
 			{
-				startWave(Role.DEFENDER);
-				final boolean display = config.showRunnerTickTimerDefender();
-				enableRunnerTickTimer(display);
+				startWave(Role.DEFENDER, config.showRunnerTickTimerDefender());
 				break;
 			}
 			case BaWidgetID.BA_COLLECTOR_GROUP_ID:
 			{
-				startWave(Role.COLLECTOR);
-				final boolean display = config.showRunnerTickTimerCollector();
-				enableRunnerTickTimer(display);
+				startWave(Role.COLLECTOR, config.showRunnerTickTimerCollector());
 				break;
 			}
 			case BaWidgetID.BA_HEALER_GROUP_ID:
 			{
-				startWave(Role.HEALER);
-				final boolean display = config.showRunnerTickTimerHealer();
-				enableRunnerTickTimer(display);
+				startWave(Role.HEALER, config.showRunnerTickTimerHealer());
 				break;
 			}
 		}
@@ -551,6 +543,9 @@ public class BaMinigamePlugin extends Plugin
 				}
 
 				stopWave();
+			}
+			else {
+				startWave(null, false);
 			}
 		}
 
@@ -905,22 +900,34 @@ public class BaMinigamePlugin extends Plugin
 		timer = null;
 	}
 
-	private void startWave(Role role)
+	// wave starts when ba ingamebit == 1 (without role set) or when ba widgets are loaded (with role set)
+	private void startWave(Role role, boolean displayTickTimer)
 	{
 		// Prevent changing waves when a wave is already set, as widgets can be
 		// loaded multiple times in game from eg. opening and closing the horn
 		// of glory.
 		if (wave != null)
 		{
+			if (wave.getRole() == null && role != null) {
+				// wave has started at ba ingamebit == 1, but role is not set
+				wave.setRole(role);
+				setCallFlashColor(role);
+				runnerTickTimer.setDisplaying(true);
+			}
 			return;
 		}
 
-		log.debug("Starting wave {} as {} at {}", currentWave, role, timer.getRoundTimeFormatted(false));
+		log.debug("Starting wave {} at {}", currentWave, timer.getRoundTimeFormatted(false));
 
 		timer.setWaveStartTime();
-		wave = new Wave(client, currentWave, role, timer);
+		wave = new Wave(client, currentWave, timer);
+		wave.setRole(role);
+		runnerTickTimer = new RunnerTickTimer();
+		runnerTickTimer.setDisplaying(displayTickTimer);
 
-		setCallFlashColor(role);
+		if (role != null) {
+			setCallFlashColor(role);
+		}
 	}
 
 	private void setCallFlashColor(Role role) {

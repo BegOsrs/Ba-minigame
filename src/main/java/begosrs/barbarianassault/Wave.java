@@ -90,7 +90,8 @@ public class Wave
 	private final int number;
 	@Nullable
 	@Getter
-	private final Role role;
+	@Setter
+	private Role role;
 	@Nullable
 	@Getter
 	private final Timer timer;
@@ -112,14 +113,13 @@ public class Wave
 
 	Wave(Client client, int number)
 	{
-		this(client, number, null, null);
+		this(client, number, null);
 	}
 
-	Wave(Client client, int number, Role role, Timer timer)
+	Wave(Client client, int number, Timer timer)
 	{
 		this.client = client;
 		this.number = number;
-		this.role = role;
 		this.timer = timer;
 		this.rolesPoints = new int[4];
 		this.amounts = new int[5];

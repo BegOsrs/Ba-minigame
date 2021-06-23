@@ -57,7 +57,7 @@ public class Test {
         assertTrue(round.getTimer().getRoundTime(false).toMillis() <= 1000);
 
         // 1st wave starts
-        Wave wave = new Wave(null, 1, null, timer);
+        Wave wave = new Wave(null, 1, timer);
         assertTrue(wave.getTimeUntilCallChange() >= 29);
         assertTrue(wave.getTimer().getWaveTime().toMillis() <= 1000);
 
@@ -68,7 +68,7 @@ public class Test {
 
         // 2nd wave starts
         timer.setWaveStartTime();
-        wave = new Wave(null, 2, null, timer);
+        wave = new Wave(null, 2, timer);
         assertTrue(wave.getTimeUntilCallChange() >= 29);
         assertTrue(wave.getTimer().getWaveTime().toMillis() <= 1000);
     }
