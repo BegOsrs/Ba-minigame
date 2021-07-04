@@ -27,17 +27,18 @@ package begosrs.barbarianassault.inventory;
 import begosrs.barbarianassault.BaMinigameConfig;
 import begosrs.barbarianassault.BaMinigamePlugin;
 import begosrs.barbarianassault.Role;
+import net.runelite.api.ItemComposition;
+import net.runelite.api.widgets.WidgetItem;
+import net.runelite.client.game.ItemManager;
+import net.runelite.client.ui.overlay.WidgetItemOverlay;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import net.runelite.api.ItemComposition;
-import net.runelite.api.widgets.WidgetItem;
-import net.runelite.client.game.ItemManager;
-import net.runelite.client.ui.overlay.WidgetItemOverlay;
 
 @Singleton
 public class InventoryOverlay extends WidgetItemOverlay

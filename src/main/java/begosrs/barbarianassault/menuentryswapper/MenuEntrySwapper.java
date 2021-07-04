@@ -29,18 +29,19 @@ import begosrs.barbarianassault.BaMinigameConfig;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
+import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.Client;
+import net.runelite.api.GameState;
+import net.runelite.api.MenuEntry;
+import net.runelite.client.util.Text;
+
+import javax.inject.Inject;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
-import javax.inject.Inject;
-import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.Client;
-import net.runelite.api.GameState;
-import net.runelite.api.MenuEntry;
-import net.runelite.client.util.Text;
 
 @Slf4j
 public class MenuEntrySwapper
@@ -161,7 +162,7 @@ public class MenuEntrySwapper
 	private void swap(ArrayListMultimap<String, Integer> optionIndexes, MenuEntry[] entries, int index1, int index2)
 	{
 		MenuEntry entry1 = entries[index1],
-			entry2 = entries[index2];
+				  entry2 = entries[index2];
 
 		entries[index1] = entry2;
 		entries[index2] = entry1;
@@ -170,10 +171,10 @@ public class MenuEntrySwapper
 
 		// Update optionIndexes
 		String option1 = Text.removeTags(entry1.getOption()).toLowerCase(),
-			option2 = Text.removeTags(entry2.getOption()).toLowerCase();
+				  option2 = Text.removeTags(entry2.getOption()).toLowerCase();
 
 		List<Integer> list1 = optionIndexes.get(option1),
-			list2 = optionIndexes.get(option2);
+				  list2 = optionIndexes.get(option2);
 
 		// call remove(Object) instead of remove(int)
 		list1.remove((Integer) index1);

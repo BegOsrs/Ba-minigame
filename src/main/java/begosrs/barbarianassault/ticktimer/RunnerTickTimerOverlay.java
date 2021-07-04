@@ -27,19 +27,17 @@ package begosrs.barbarianassault.ticktimer;
 import begosrs.barbarianassault.BaMinigameConfig;
 import begosrs.barbarianassault.BaMinigamePlugin;
 import begosrs.barbarianassault.Role;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
-import static net.runelite.api.MenuAction.RUNELITE_OVERLAY_CONFIG;
 import net.runelite.client.ui.overlay.OverlayLayer;
-import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
-import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPanel;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.TitleComponent;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
 
 @Slf4j
 @Singleton
@@ -65,9 +63,9 @@ public class RunnerTickTimerOverlay extends OverlayPanel
 	{
 		final Role role = plugin.getRole();
 		if (role == Role.ATTACKER && config.showRunnerTickTimerAttacker()
-				|| role == Role.DEFENDER && config.showRunnerTickTimerDefender()
-				|| role == Role.COLLECTOR && config.showRunnerTickTimerCollector()
-				|| role == Role.HEALER && config.showRunnerTickTimerHealer())
+				  || role == Role.DEFENDER && config.showRunnerTickTimerDefender()
+				  || role == Role.COLLECTOR && config.showRunnerTickTimerCollector()
+				  || role == Role.HEALER && config.showRunnerTickTimerHealer())
 		{
 			final RunnerTickTimer runnerTickTimer = plugin.getRunnerTickTimer();
 			if (runnerTickTimer != null && runnerTickTimer.isDisplaying())

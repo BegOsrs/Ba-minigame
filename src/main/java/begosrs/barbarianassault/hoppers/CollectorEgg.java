@@ -26,9 +26,10 @@ package begosrs.barbarianassault.hoppers;
 
 import begosrs.barbarianassault.BaMinigamePlugin;
 import begosrs.barbarianassault.api.BaVarbits;
-import java.awt.Color;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+
+import java.awt.Color;
 
 @Getter
 @RequiredArgsConstructor

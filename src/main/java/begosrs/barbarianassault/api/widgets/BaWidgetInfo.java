@@ -26,7 +26,6 @@
 package begosrs.barbarianassault.api.widgets;
 
 import net.runelite.api.widgets.Widget;
-import net.runelite.api.widgets.WidgetID;
 
 /**
  * Represents a group-child {@link Widget} relationship.
@@ -35,6 +34,8 @@ import net.runelite.api.widgets.WidgetID;
  */
 public enum BaWidgetInfo
 {
+	BA_TEAM(256, 2),
+
 	BA_ATTACKER_CALL_FLASH(BaWidgetID.BA_ATTACKER_GROUP_ID, BaWidgetID.BarbarianAssault.CALL_FLASH),
 	BA_ATTACKER_WAVE_TEXT(BaWidgetID.BA_ATTACKER_GROUP_ID, BaWidgetID.BarbarianAssault.CURRENT_WAVE),
 	BA_ATTACKER_CALL_TEXT(BaWidgetID.BA_ATTACKER_GROUP_ID, BaWidgetID.BarbarianAssault.Attacker.TO_CALL),
@@ -63,6 +64,7 @@ public enum BaWidgetInfo
 	BA_HEALER_ROLE_TEXT(BaWidgetID.BA_HEALER_GROUP_ID, BaWidgetID.BarbarianAssault.ROLE),
 	BA_HEALER_ROLE_SPRITE(BaWidgetID.BA_HEALER_GROUP_ID, BaWidgetID.BarbarianAssault.ROLE_SPRITE),
 
+	BA_HEAL_TEAMMATES(BaWidgetID.BA_HEALER_GROUP_ID, BaWidgetID.BarbarianAssault.Healer.TEAMMATES),
 	BA_HEAL_TEAMMATE1(BaWidgetID.BA_HEALER_GROUP_ID, BaWidgetID.BarbarianAssault.Healer.TEAMMATE1),
 	BA_HEAL_TEAMMATE2(BaWidgetID.BA_HEALER_GROUP_ID, BaWidgetID.BarbarianAssault.Healer.TEAMMATE2),
 	BA_HEAL_TEAMMATE3(BaWidgetID.BA_HEALER_GROUP_ID, BaWidgetID.BarbarianAssault.Healer.TEAMMATE3),

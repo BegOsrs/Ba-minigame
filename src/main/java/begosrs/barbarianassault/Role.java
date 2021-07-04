@@ -28,32 +28,33 @@ package begosrs.barbarianassault;
 import begosrs.barbarianassault.api.BaSpriteID;
 import begosrs.barbarianassault.api.widgets.BaWidgetInfo;
 import com.google.common.collect.ImmutableMap;
-import java.awt.Color;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.runelite.api.Client;
 import net.runelite.api.ItemID;
 import net.runelite.api.widgets.Widget;
 
+import java.awt.Color;
+
 @AllArgsConstructor
 public enum Role
 {
 	ATTACKER("Attacker", BaMinigamePlugin.RED,
-		BaWidgetInfo.BA_ATTACKER_WAVE_TEXT, BaWidgetInfo.BA_ATTACKER_LISTEN_TOP_TEXT, BaWidgetInfo.BA_HORN_OF_GLORY_COLLECTOR_LISTEN_TEXT,
-		BaWidgetInfo.BA_ATTACKER_CALL_TEXT, BaWidgetInfo.BA_ATTACKER_CALL_FLASH, BaWidgetInfo.BA_HORN_OF_GLORY_COLLECTOR_LISTEN_TEXT, BaWidgetInfo.BA_ATTACKER_ROLE_TEXT,
-		BaWidgetInfo.BA_ATTACKER_ROLE_SPRITE, BaSpriteID.BA_COLLECTOR_ICON, "Collector"),
+			  BaWidgetInfo.BA_ATTACKER_WAVE_TEXT, BaWidgetInfo.BA_ATTACKER_LISTEN_TOP_TEXT, BaWidgetInfo.BA_HORN_OF_GLORY_COLLECTOR_LISTEN_TEXT,
+			  BaWidgetInfo.BA_ATTACKER_CALL_TEXT, BaWidgetInfo.BA_ATTACKER_CALL_FLASH, BaWidgetInfo.BA_HORN_OF_GLORY_COLLECTOR_LISTEN_TEXT, BaWidgetInfo.BA_ATTACKER_ROLE_TEXT,
+			  BaWidgetInfo.BA_ATTACKER_ROLE_SPRITE, BaSpriteID.BA_COLLECTOR_ICON, "Collector"),
 	DEFENDER("Defender", BaMinigamePlugin.LIGHT_BLUE,
-		BaWidgetInfo.BA_DEFENDER_WAVE_TEXT, BaWidgetInfo.BA_DEFENDER_LISTEN_TEXT, BaWidgetInfo.BA_HORN_OF_GLORY_HEALER_LISTEN_TEXT,
-		BaWidgetInfo.BA_DEFENDER_CALL_TEXT, BaWidgetInfo.BA_DEFENDER_CALL_FLASH, BaWidgetInfo.BA_HORN_OF_GLORY_HEALER_LISTEN_TEXT, BaWidgetInfo.BA_DEFENDER_ROLE_TEXT,
-		BaWidgetInfo.BA_DEFENDER_ROLE_SPRITE, BaSpriteID.BA_HEALER_ICON, "Healer"),
+			  BaWidgetInfo.BA_DEFENDER_WAVE_TEXT, BaWidgetInfo.BA_DEFENDER_LISTEN_TEXT, BaWidgetInfo.BA_HORN_OF_GLORY_HEALER_LISTEN_TEXT,
+			  BaWidgetInfo.BA_DEFENDER_CALL_TEXT, BaWidgetInfo.BA_DEFENDER_CALL_FLASH, BaWidgetInfo.BA_HORN_OF_GLORY_HEALER_LISTEN_TEXT, BaWidgetInfo.BA_DEFENDER_ROLE_TEXT,
+			  BaWidgetInfo.BA_DEFENDER_ROLE_SPRITE, BaSpriteID.BA_HEALER_ICON, "Healer"),
 	COLLECTOR("Collector", Color.YELLOW,
-		BaWidgetInfo.BA_COLLECTOR_WAVE_TEXT, BaWidgetInfo.BA_COLLECTOR_LISTEN_TEXT, BaWidgetInfo.BA_HORN_OF_GLORY_ATTACKER_LISTEN_TEXT,
-		BaWidgetInfo.BA_COLLECTOR_CALL_TEXT, BaWidgetInfo.BA_COLLECTOR_CALL_FLASH, BaWidgetInfo.BA_HORN_OF_GLORY_ATTACKER_LISTEN_TEXT, BaWidgetInfo.BA_COLLECTOR_ROLE_TEXT,
-		BaWidgetInfo.BA_COLLECTOR_ROLE_SPRITE, BaSpriteID.BA_ATTACKER_ICON, "Attacker"),
+			  BaWidgetInfo.BA_COLLECTOR_WAVE_TEXT, BaWidgetInfo.BA_COLLECTOR_LISTEN_TEXT, BaWidgetInfo.BA_HORN_OF_GLORY_ATTACKER_LISTEN_TEXT,
+			  BaWidgetInfo.BA_COLLECTOR_CALL_TEXT, BaWidgetInfo.BA_COLLECTOR_CALL_FLASH, BaWidgetInfo.BA_HORN_OF_GLORY_ATTACKER_LISTEN_TEXT, BaWidgetInfo.BA_COLLECTOR_ROLE_TEXT,
+			  BaWidgetInfo.BA_COLLECTOR_ROLE_SPRITE, BaSpriteID.BA_ATTACKER_ICON, "Attacker"),
 	HEALER("Healer", BaMinigamePlugin.DARK_GREEN,
-		BaWidgetInfo.BA_HEALER_WAVE_TEXT, BaWidgetInfo.BA_HEALER_LISTEN_TEXT, BaWidgetInfo.BA_HORN_OF_GLORY_DEFENDER_LISTEN_TEXT,
-		BaWidgetInfo.BA_HEALER_CALL_TEXT, BaWidgetInfo.BA_HEALER_CALL_FLASH, BaWidgetInfo.BA_HORN_OF_GLORY_DEFENDER_LISTEN_TEXT, BaWidgetInfo.BA_HEALER_ROLE_TEXT,
-		BaWidgetInfo.BA_HEALER_ROLE_SPRITE, BaSpriteID.BA_DEFENDER_ICON, "Defender");
+			  BaWidgetInfo.BA_HEALER_WAVE_TEXT, BaWidgetInfo.BA_HEALER_LISTEN_TEXT, BaWidgetInfo.BA_HORN_OF_GLORY_DEFENDER_LISTEN_TEXT,
+			  BaWidgetInfo.BA_HEALER_CALL_TEXT, BaWidgetInfo.BA_HEALER_CALL_FLASH, BaWidgetInfo.BA_HORN_OF_GLORY_DEFENDER_LISTEN_TEXT, BaWidgetInfo.BA_HEALER_ROLE_TEXT,
+			  BaWidgetInfo.BA_HEALER_ROLE_SPRITE, BaSpriteID.BA_DEFENDER_ICON, "Defender");
 
 	@Getter
 	private final String name;
@@ -87,36 +88,36 @@ public enum Role
 	}
 
 	private static final ImmutableMap<String, String> GLORY_CALLS = ImmutableMap.<String, String>builder()
-		.put("Controlled/Bullet/Wind", "Controlled/")
-		.put("Accurate/Field/Water", "Accurate/")
-		.put("Aggressive/Blunt/Earth", "Aggressive/")
-		.put("Defensive/Barbed/Fire", "Defensive/")
-		.put("Tofu", "Tofu")
-		.put("Crackers", "Crackers")
-		.put("Worms", "Worms")
-		.put("Poison worms", "Pois. Worms")
-		.put("Poison tofu", "Pois. Tofu")
-		.put("Poison meat", "Pois. Meat")
-		.put("Red egg", "Red egg")
-		.put("Green egg", "Green egg")
-		.put("Blue egg", "Blue egg")
-		.build();
+			  .put("Controlled/Bullet/Wind", "Controlled/")
+			  .put("Accurate/Field/Water", "Accurate/")
+			  .put("Aggressive/Blunt/Earth", "Aggressive/")
+			  .put("Defensive/Barbed/Fire", "Defensive/")
+			  .put("Tofu", "Tofu")
+			  .put("Crackers", "Crackers")
+			  .put("Worms", "Worms")
+			  .put("Poison worms", "Pois. Worms")
+			  .put("Poison tofu", "Pois. Tofu")
+			  .put("Poison meat", "Pois. Meat")
+			  .put("Red egg", "Red egg")
+			  .put("Green egg", "Green egg")
+			  .put("Blue egg", "Blue egg")
+			  .build();
 
 	private static final ImmutableMap<String, Integer> ITEMS = ImmutableMap.<String, Integer>builder()
-		.put("Tofu", ItemID.TOFU)
-		.put("Crackers", ItemID.CRACKERS)
-		.put("Worms", ItemID.WORMS)
-		.put("Pois. Worms", ItemID.POISONED_WORMS)
-		.put("Pois. Tofu", ItemID.POISONED_TOFU)
-		.put("Pois. Meat", ItemID.POISONED_MEAT)
-		.put("Controlled/", ItemID.BULLET_ARROW)
-		.put("Accurate/", ItemID.FIELD_ARROW)
-		.put("Aggressive/", ItemID.BLUNT_ARROW)
-		.put("Defensive/", ItemID.BARBED_ARROW)
-		.put("Red eggs", ItemID.RED_EGG)
-		.put("Green eggs", ItemID.GREEN_EGG)
-		.put("Blue eggs", ItemID.BLUE_EGG)
-		.build();
+			  .put("Tofu", ItemID.TOFU)
+			  .put("Crackers", ItemID.CRACKERS)
+			  .put("Worms", ItemID.WORMS)
+			  .put("Pois. Worms", ItemID.POISONED_WORMS)
+			  .put("Pois. Tofu", ItemID.POISONED_TOFU)
+			  .put("Pois. Meat", ItemID.POISONED_MEAT)
+			  .put("Controlled/", ItemID.BULLET_ARROW)
+			  .put("Accurate/", ItemID.FIELD_ARROW)
+			  .put("Aggressive/", ItemID.BLUNT_ARROW)
+			  .put("Defensive/", ItemID.BARBED_ARROW)
+			  .put("Red eggs", ItemID.RED_EGG)
+			  .put("Green eggs", ItemID.GREEN_EGG)
+			  .put("Blue eggs", ItemID.BLUE_EGG)
+			  .build();
 
 	int getListenItemId(Client client)
 	{

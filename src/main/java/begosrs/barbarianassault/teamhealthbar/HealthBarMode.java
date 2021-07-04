@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 2018, Tomas Slusny <slusnucky@gmail.com>
- * Copyright (c) 2020, BegOsrs <https://github.com/begosrs>
+ * Copyright (c) 2021, begosrs <https://github.com/begosrs>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -23,34 +22,9 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package begosrs.barbarianassault.grounditems;
+package begosrs.barbarianassault.teamhealthbar;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.Value;
-import net.runelite.api.coords.WorldPoint;
-
-import javax.annotation.Nullable;
-import java.time.Instant;
-
-@Data
-@Builder
-public class GroundItem
+public enum HealthBarMode
 {
-	private int id;
-	private int itemId;
-	private String name;
-	private int quantity;
-	private WorldPoint location;
-	private int height;
-	private int offset;
-	@Nullable
-	private Instant spawnTime;
-
-	@Value
-	public static class Key
-	{
-		int itemId;
-		WorldPoint location;
-	}
+	DEFAULT, DRAGGABLE, HIDDEN
 }

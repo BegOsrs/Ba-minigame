@@ -28,22 +28,19 @@ package begosrs.barbarianassault.teamhealthbar;
 import begosrs.barbarianassault.BaMinigameConfig;
 import begosrs.barbarianassault.BaMinigamePlugin;
 import begosrs.barbarianassault.Role;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import javax.inject.Inject;
-
 import begosrs.barbarianassault.api.widgets.BaWidgetInfo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.runelite.api.Client;
-import net.runelite.api.MenuAction;
 import net.runelite.api.widgets.Widget;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
-import net.runelite.client.ui.overlay.OverlayManager;
-import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPosition;
+
+import javax.inject.Inject;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
 
 public class TeamHealthBarOverlay extends Overlay
 {
@@ -82,7 +79,7 @@ public class TeamHealthBarOverlay extends Overlay
 	{
 		final Role role = plugin.getRole();
 
-		if (config.showTeammateHealthBars() && role == Role.HEALER)
+		if (config.showTeammateHealthBars() && plugin.isDisplayingHealerTeammatesHealth() && role == Role.HEALER)
 		{
 			for (HealerTeam teammate : HealerTeam.values())
 			{

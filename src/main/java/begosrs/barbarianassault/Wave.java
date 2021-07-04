@@ -27,8 +27,6 @@ package begosrs.barbarianassault;
 
 import begosrs.barbarianassault.api.widgets.BaWidgetInfo;
 import begosrs.barbarianassault.timer.Timer;
-import java.awt.Color;
-import javax.annotation.Nullable;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -36,49 +34,52 @@ import net.runelite.api.Client;
 import net.runelite.api.widgets.Widget;
 import net.runelite.client.chat.ChatMessageBuilder;
 
+import javax.annotation.Nullable;
+import java.awt.Color;
+
 @Slf4j
 public class Wave
 {
 	private static final String[] SUMMARY_DESCRIPTIONS = {
-		"Wrong attacks",
-		"Runners passed",
-		"Eggs",
-		"Hp",
-		"Wrong poison",
+			  "Wrong attacks",
+			  "Runners passed",
+			  "Eggs",
+			  "Hp",
+			  "Wrong poison",
 	};
 
 	private static final BaWidgetInfo[] AMOUNTS_WIDGETS = {
-		BaWidgetInfo.BA_FAILED_ATTACKS,
-		BaWidgetInfo.BA_RUNNERS_PASSED,
-		BaWidgetInfo.BA_EGGS_COLLECTED,
-		BaWidgetInfo.BA_HITPOINTS_REPLENISHED,
-		BaWidgetInfo.BA_WRONG_POISON_PACKS,
+			  BaWidgetInfo.BA_FAILED_ATTACKS,
+			  BaWidgetInfo.BA_RUNNERS_PASSED,
+			  BaWidgetInfo.BA_EGGS_COLLECTED,
+			  BaWidgetInfo.BA_HITPOINTS_REPLENISHED,
+			  BaWidgetInfo.BA_WRONG_POISON_PACKS,
 	};
 
 	private static final int FAILED_ATTACKS_INDEX = 0;
 	private static final BaWidgetInfo[] ATTACKER_POINTS_WIDGETS = {
-		BaWidgetInfo.BA_FAILED_ATTACKS_POINTS,
-		BaWidgetInfo.BA_RANGERS_KILLED,
-		BaWidgetInfo.BA_FIGHTERS_KILLED,
+			  BaWidgetInfo.BA_FAILED_ATTACKS_POINTS,
+			  BaWidgetInfo.BA_RANGERS_KILLED,
+			  BaWidgetInfo.BA_FIGHTERS_KILLED,
 	};
 
 	private static final int RUNNERS_PASSED_INDEX = 0;
 	private static final BaWidgetInfo[] DEFENDER_POINTS_WIDGETS = {
-		BaWidgetInfo.BA_RUNNERS_PASSED_POINTS,
-		BaWidgetInfo.BA_RUNNERS_KILLED,
+			  BaWidgetInfo.BA_RUNNERS_PASSED_POINTS,
+			  BaWidgetInfo.BA_RUNNERS_KILLED,
 	};
 
 	private static final int EGGS_COLLECTED_INDEX = 0;
 	private static final BaWidgetInfo[] COLLECTOR_POINTS_WIDGETS = {
-		BaWidgetInfo.BA_EGGS_COLLECTED_POINTS,
+			  BaWidgetInfo.BA_EGGS_COLLECTED_POINTS,
 	};
 
 	private static final int HITPOINTS_REPLENISHED_INDEX = 0;
 	private static final int WRONG_POISON_PACKS_INDEX = 1;
 	private static final BaWidgetInfo[] HEALER_POINTS_WIDGETS = {
-		BaWidgetInfo.BA_HITPOINTS_REPLENISHED_POINTS,
-		BaWidgetInfo.BA_WRONG_POISON_PACKS_POINTS,
-		BaWidgetInfo.BA_HEALERS_KILLED,
+			  BaWidgetInfo.BA_HITPOINTS_REPLENISHED_POINTS,
+			  BaWidgetInfo.BA_WRONG_POISON_PACKS_POINTS,
+			  BaWidgetInfo.BA_HEALERS_KILLED,
 	};
 
 	private static final int MAXIMUM_COLLECTED_EGGS = 60;

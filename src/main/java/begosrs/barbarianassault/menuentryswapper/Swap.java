@@ -24,9 +24,10 @@
  */
 package begosrs.barbarianassault.menuentryswapper;
 
+import lombok.Value;
+
 import java.util.function.Predicate;
 import java.util.function.Supplier;
-import lombok.Value;
 
 @Value
 class Swap

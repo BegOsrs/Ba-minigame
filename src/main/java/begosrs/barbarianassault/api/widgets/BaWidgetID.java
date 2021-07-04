@@ -58,6 +58,7 @@ public class BaWidgetID
 
 		static class Healer
 		{
+			static final int TEAMMATES = 13;
 			static final int TEAMMATE1 = 18;
 			static final int TEAMMATE2 = 22;
 			static final int TEAMMATE3 = 26;

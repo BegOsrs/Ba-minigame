@@ -25,11 +25,12 @@
 package begosrs.barbarianassault;
 
 import begosrs.barbarianassault.timer.Timer;
+import lombok.Getter;
+import net.runelite.client.chat.ChatMessageBuilder;
+
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.Getter;
-import net.runelite.client.chat.ChatMessageBuilder;
 
 class Round
 {
@@ -37,11 +38,11 @@ class Round
 	static final int ENDING_WAVE = 10;
 
 	private static final String[] SUMMARY_DESCRIPTIONS = {
-		"Wrong attacks",
-		"Runners passed",
-		"Eggs",
-		"Hp",
-		"Wrong poison",
+			  "Wrong attacks",
+			  "Runners passed",
+			  "Eggs",
+			  "Hp",
+			  "Wrong poison",
 	};
 
 	@Getter
