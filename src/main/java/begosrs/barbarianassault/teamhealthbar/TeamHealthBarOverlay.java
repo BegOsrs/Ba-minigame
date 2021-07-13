@@ -41,9 +41,6 @@ import javax.inject.Inject;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.time.Duration;
-
-import static net.runelite.client.util.RSTimeUnit.GAME_TICKS;
 
 public class TeamHealthBarOverlay extends Overlay
 {
@@ -61,8 +58,6 @@ public class TeamHealthBarOverlay extends Overlay
 		private final int offsetY;
 		private final int width;
 	}
-
-	private static final long GAME_TICK_MILLIS = Duration.of(1, GAME_TICKS).toMillis();
 
 	private final Client client;
 	private final BaMinigamePlugin plugin;

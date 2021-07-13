@@ -261,19 +261,19 @@ public class BaMinigamePlugin extends Plugin
 
 		menuEntrySwapper.disableSwaps();
 
+		keyManager.unregisterKeyListener(inputListener);
+
 		hoppers.clear();
 		cannonEggs.clear();
 		groundEggs.clear();
 		groundBait.clear();
 		groundLogsHammer.clear();
 
-		clientThread.invokeLater(this::restoreAttackStyleText);
-
-		keyManager.unregisterKeyListener(inputListener);
-
 		displayRoleSprite();
 		disableRunnerTickTimer(true);
 		removeDeathTimes();
+		clientThread.invokeLater(this::restoreHealerTeammatesHealth);
+		clientThread.invokeLater(this::restoreAttackStyleText);
 
 		inGameBit = 0;
 
@@ -284,8 +284,6 @@ public class BaMinigamePlugin extends Plugin
 
 		lastListen = null;
 		lastListenItemId = 0;
-
-		clientThread.invokeLater(this::restoreAttackStyleText);
 
 		restoreGroundItemsPluginLists();
 		restoreBarbarianAssaultPluginFeatures();
@@ -1548,6 +1546,16 @@ public class BaMinigamePlugin extends Plugin
 			}
 		}
 		else {
+			teammatesHealth.setHidden(false);
+		}
+	}
+
+	private void restoreHealerTeammatesHealth()
+	{
+		Widget teammatesHealth = client.getWidget(BaWidgetInfo.BA_HEAL_TEAMMATES.getGroupId(),
+				  BaWidgetInfo.BA_HEAL_TEAMMATES.getChildId());
+		if (teammatesHealth != null)
+		{
 			teammatesHealth.setHidden(false);
 		}
 	}
