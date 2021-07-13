@@ -64,7 +64,7 @@ public class TimerOverlay extends Overlay
 		this.client = client;
 		this.plugin = plugin;
 		this.config = config;
-		clockImage = ImageUtil.getResourceStreamFromClass(getClass(), "/clock.png");
+		clockImage = ImageUtil.loadImageResource(getClass(), "/clock.png");
 	}
 
 	@Override

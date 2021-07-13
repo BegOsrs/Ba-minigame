@@ -40,7 +40,6 @@ import begosrs.barbarianassault.inventory.InventoryOverlay;
 import begosrs.barbarianassault.menuentryswapper.MenuEntrySwapper;
 import begosrs.barbarianassault.points.PointsMode;
 import begosrs.barbarianassault.points.RewardsBreakdownMode;
-import begosrs.barbarianassault.teamhealthbar.HealerTeammatesWidgetOverlay;
 import begosrs.barbarianassault.teamhealthbar.TeamHealthBarOverlay;
 import begosrs.barbarianassault.ticktimer.RunnerTickTimer;
 import begosrs.barbarianassault.ticktimer.RunnerTickTimerOverlay;
@@ -91,7 +90,6 @@ import net.runelite.client.game.ItemManager;
 import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.infobox.Counter;
 import net.runelite.client.ui.overlay.infobox.InfoBox;
@@ -178,7 +176,6 @@ public class BaMinigamePlugin extends Plugin
 	private RunnerTickTimerOverlay runnerTickTimerOverlay;
 	@Inject
 	private TeamHealthBarOverlay teamHealthBarOverlay;
-	private Overlay healerTeammatesWidgetOverlay;
 	@Inject
 	private BaMinigameInputListener inputListener;
 
@@ -211,9 +208,11 @@ public class BaMinigamePlugin extends Plugin
 	@Getter
 	private int lastListenItemId;
 	private Integer attackStyleTextColor;
-	@Setter
 	@Getter
 	private boolean teammatesHealthHotkeyPressed;
+	@Setter
+	@Getter
+	private boolean teammatesHealthShifted;
 
 	@Provides
 	BaMinigameConfig provideConfig(ConfigManager configManager)
@@ -235,8 +234,6 @@ public class BaMinigamePlugin extends Plugin
 		overlayManager.add(hoppersOverlay);
 		overlayManager.add(runnerTickTimerOverlay);
 		overlayManager.add(teamHealthBarOverlay);
-		healerTeammatesWidgetOverlay = new HealerTeammatesWidgetOverlay(this, client);
-		overlayManager.add(healerTeammatesWidgetOverlay);
 
 		menuEntrySwapper.enableSwaps();
 
@@ -271,8 +268,6 @@ public class BaMinigamePlugin extends Plugin
 		groundLogsHammer.clear();
 
 		clientThread.invokeLater(this::restoreAttackStyleText);
-
-		overlayManager.remove(healerTeammatesWidgetOverlay);
 
 		keyManager.unregisterKeyListener(inputListener);
 
@@ -424,15 +419,13 @@ public class BaMinigamePlugin extends Plugin
 						}
 						break;
 					}
-                    /*case "hideHealerTeammatesHealth":
-                    {
-                        if (!config.hideHealerTeammatesHealth()) {
-                            healerTeammatesWidgetOverlay = new HealerTeammatesWidgetOverlay(this, client);
-                            overlayManager.add(healerTeammatesWidgetOverlay);
-                        }
-                        setTeammatesHealthDisplayMode();
-                        break;
-                    }*/
+					case "hideHealerTeammatesHealth":
+					{
+						if (wave != null && wave.getRole() == Role.HEALER) {
+							setHealerTeammatesHealthDisplay();
+						}
+						break;
+					}
 				}
 				break;
 		}
@@ -947,11 +940,10 @@ public class BaMinigamePlugin extends Plugin
 				// wave has started at ba ingamebit == 1, but role is not set
 				wave.setRole(role);
 				setCallFlashColor(role);
-				runnerTickTimer.setDisplaying(displayTickTimer);
-				if (role == Role.HEALER)
-				{
-					setTeammatesHealthDisplayMode();
+				if (role == Role.HEALER) {
+					setHealerTeammatesHealthDisplay();
 				}
+				runnerTickTimer.setDisplaying(displayTickTimer);
 			}
 			return;
 		}
@@ -967,41 +959,10 @@ public class BaMinigamePlugin extends Plugin
 		if (role != null)
 		{
 			setCallFlashColor(role);
+			if (role == Role.HEALER) {
+				setHealerTeammatesHealthDisplay();
+			}
 		}
-	}
-
-	public void setTeammatesHealthDisplayMode()
-	{
-       /* Widget teammatesHealth = client.getWidget(BaWidgetInfo.BA_HEAL_TEAMMATES.getGroupId(),
-                BaWidgetInfo.BA_HEAL_TEAMMATES.getChildId());
-        if (teammatesHealth == null)
-        {
-            return;
-        }
-        if (config.hideHealerTeammatesHealth())
-        {
-            *//*if (healerTeammatesWidgetOverlay != null)
-            {
-                overlayManager.remove(healerTeammatesWidgetOverlay);
-                healerTeammatesWidgetOverlay = null;
-            }*//*
-            if (config.ctrlShowsHealerTeammatesHealth()) {
-                teammatesHealth.setHidden(!teammatesHealthHotkeyPressed);
-            }
-            else {
-                teammatesHealth.setHidden(true);
-            }
-        }
-        else
-        {
-            *//*if (healerTeammatesWidgetOverlay == null)
-            {
-                healerTeammatesWidgetOverlay = new HealerTeammatesWidgetOverlay(this, client);
-                overlayManager.add(healerTeammatesWidgetOverlay);
-            }*//*
-            // Always hide here then display on overlay render to avoid widget flickering
-           *//* teammatesHealth.setHidden(true);*//*
-        }*/
 	}
 
 	private void setCallFlashColor(Role role)
@@ -1567,5 +1528,35 @@ public class BaMinigamePlugin extends Plugin
 	public boolean isDisplayingHealerTeammatesHealth()
 	{
 		return !config.hideHealerTeammatesHealth() || config.ctrlShowsHealerTeammatesHealth() && teammatesHealthHotkeyPressed;
+	}
+
+	private void setHealerTeammatesHealthDisplay()
+	{
+		Widget teammatesHealth = client.getWidget(BaWidgetInfo.BA_HEAL_TEAMMATES.getGroupId(),
+				  BaWidgetInfo.BA_HEAL_TEAMMATES.getChildId());
+		if (teammatesHealth == null)
+		{
+			return;
+		}
+		if (config.hideHealerTeammatesHealth())
+		{
+			if (config.ctrlShowsHealerTeammatesHealth()) {
+				teammatesHealth.setHidden(!teammatesHealthHotkeyPressed);
+			}
+			else {
+				teammatesHealth.setHidden(true);
+			}
+		}
+		else {
+			teammatesHealth.setHidden(false);
+		}
+	}
+
+	void onTeammatesHealthHotkeyChanged(boolean pressed)
+	{
+		this.teammatesHealthHotkeyPressed = pressed;
+		if (wave != null && wave.getRole() == Role.HEALER) {
+			setHealerTeammatesHealthDisplay();
+		}
 	}
 }

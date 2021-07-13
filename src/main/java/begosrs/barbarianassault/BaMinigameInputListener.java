@@ -25,7 +25,7 @@ public class BaMinigameInputListener implements KeyListener
 	{
 		if (e.getKeyCode() == HOTKEY)
 		{
-			plugin.setTeammatesHealthHotkeyPressed(true);
+			plugin.onTeammatesHealthHotkeyChanged(true);
 		}
 	}
 
@@ -34,7 +34,7 @@ public class BaMinigameInputListener implements KeyListener
 	{
 		if (e.getKeyCode() == HOTKEY)
 		{
-			plugin.setTeammatesHealthHotkeyPressed(false);
+			plugin.onTeammatesHealthHotkeyChanged(false);
 		}
 	}
 }
