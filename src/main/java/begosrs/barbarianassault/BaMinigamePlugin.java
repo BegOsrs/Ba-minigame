@@ -1525,7 +1525,7 @@ public class BaMinigamePlugin extends Plugin
 
 	public boolean isDisplayingHealerTeammatesHealth()
 	{
-		return !config.hideHealerTeammatesHealth() || config.ctrlShowsHealerTeammatesHealth() && teammatesHealthHotkeyPressed;
+		return !config.hideHealerTeammatesHealth() || teammatesHealthHotkeyPressed;
 	}
 
 	private void setHealerTeammatesHealthDisplay()
@@ -1538,12 +1538,7 @@ public class BaMinigamePlugin extends Plugin
 		}
 		if (config.hideHealerTeammatesHealth())
 		{
-			if (config.ctrlShowsHealerTeammatesHealth()) {
-				teammatesHealth.setHidden(!teammatesHealthHotkeyPressed);
-			}
-			else {
-				teammatesHealth.setHidden(true);
-			}
+			teammatesHealth.setHidden(!teammatesHealthHotkeyPressed);
 		}
 		else {
 			teammatesHealth.setHidden(false);

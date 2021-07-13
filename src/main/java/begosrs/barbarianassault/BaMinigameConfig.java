@@ -36,6 +36,7 @@ import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.ConfigSection;
+import net.runelite.client.config.Keybind;
 import net.runelite.client.config.Range;
 
 import java.awt.Color;
@@ -530,15 +531,15 @@ public interface BaMinigameConfig extends Config
 	}
 
 	@ConfigItem(
-			  keyName = "ctrlShowsHealerTeammatesHealth",
-			  name = "Ctrl-key shows teammates health",
-			  description = "Press ctrl key to show teammates health information",
+			  keyName = "healerTeammatesHealthHotkey",
+			  name = "Teammates health hotkey",
+			  description = "Hotkey to show teammates health information when hidden",
 			  position = 8,
 			  section = healerSection
 	)
-	default boolean ctrlShowsHealerTeammatesHealth()
+	default Keybind healerTeammatesHealthHotkey()
 	{
-		return true;
+		return Keybind.CTRL;
 	}
 
 	@ConfigItem(

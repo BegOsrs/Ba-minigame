@@ -7,7 +7,6 @@ import java.awt.event.KeyEvent;
 
 public class BaMinigameInputListener implements KeyListener
 {
-	private static final int HOTKEY = KeyEvent.VK_CONTROL;
 
 	@Inject
 	private BaMinigamePlugin plugin;
@@ -23,7 +22,7 @@ public class BaMinigameInputListener implements KeyListener
 	@Override
 	public void keyPressed(KeyEvent e)
 	{
-		if (e.getKeyCode() == HOTKEY)
+		if (config.healerTeammatesHealthHotkey().matches(e))
 		{
 			plugin.onTeammatesHealthHotkeyChanged(true);
 		}
@@ -32,7 +31,7 @@ public class BaMinigameInputListener implements KeyListener
 	@Override
 	public void keyReleased(KeyEvent e)
 	{
-		if (e.getKeyCode() == HOTKEY)
+		if (config.healerTeammatesHealthHotkey().matches(e))
 		{
 			plugin.onTeammatesHealthHotkeyChanged(false);
 		}
